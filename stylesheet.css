@@ -43,7 +43,7 @@
 
 }
 
-.side-content {
+.side-content-left {
 
     flex: 35%;
     background-color: lightgray;
@@ -51,7 +51,15 @@
 
 }
 
-.side-content img {
+.side-content-right {
+
+    flex: 35%;
+    background-color: lightgray;
+    padding: 20px;
+
+}
+
+.side-content-left img {
 
         width: 100%;
         display: block;
@@ -61,7 +69,17 @@
         border-color: #333;
 }
 
-.main-content {
+.side-content-right img {
+
+    width: 100%;
+    display: block;
+    
+    border-style: solid;
+    border-width: 10px;
+    border-color: #333;
+}
+
+.main-content-right {
 
     flex: 65%;
     background-color: white;
@@ -69,6 +87,13 @@
 
 }
 
+.main-content-left {
+
+    flex: 65%;
+    background-color: white;
+    padding: 20px;
+
+}
 .footer {
 
     text-align: center;
@@ -83,3 +108,45 @@
     margin-top: 4px;
 
 }
+
+.package-table {
+
+    width: 70%;
+    height: 500px;
+
+    border-collapse: collapse;
+    table-layout: fixed;
+
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+
+}
+
+tr.table-row  {
+
+    border-bottom: solid thin;
+
+}
+
+.left-align {
+
+    text-align: left;
+
+}
+
+.wide {
+    width: 400px;
+ }
+
+ th {
+
+    color:red;
+    border-style: solid;
+    background-color: #1ABC9C;
+    padding: 1px;
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    https://stackoverflow.com/questions/34478694/how-to-set-table-border-less-then-cell-height
+ }
