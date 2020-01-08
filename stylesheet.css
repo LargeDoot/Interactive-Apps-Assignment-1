@@ -111,11 +111,11 @@
 
 .package-table {
 
-    width: 70%;
+    width: 85%;
     height: 500px;
 
     border-collapse: collapse;
-    table-layout: fixed;
+    /* table-layout: fixed; */
 
     margin-left: auto;
     margin-right: auto;
@@ -129,6 +129,15 @@ tr.table-row  {
 
 }
 
+.package-table th {
+
+    min-width: 10vw;
+    color: red;
+
+}
+
+
+
 .left-align {
 
     text-align: left;
@@ -136,10 +145,11 @@ tr.table-row  {
 }
 
 .wide {
-    width: 400px;
+    width: 30vw;
  }
 
- th {
+
+ /* th {
 
     color:red;
     border-style: solid;
@@ -149,4 +159,4 @@ tr.table-row  {
     margin-left: 10px;
     margin-right: 10px;
     https://stackoverflow.com/questions/34478694/how-to-set-table-border-less-then-cell-height
- }
+ } */
