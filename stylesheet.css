@@ -1,4 +1,5 @@
 /* Style sheet for CO1706 Assignment */
+
 /*          By Ethan W               */
 
 * {
@@ -6,17 +7,34 @@
     box-sizing: border-box;
 }
 
+p, ul {
+    overflow-wrap: break-word;
+}
+
+div {
+    max-width: 100%;
+}
+
 .header {
     text-align: center;
+    padding: 30px;
     background-color: #DB53FB;
-    padding: 90px;
-    color: white;
+    
+    max-height: 400px;
+    max-width: 100%;
+    flex: 100%;
 }
 
 .navbar {
     background-color: #333;
     overflow: hidden;
+    width: 100%;
 }
+
+.currentpage {
+    background-color: #666;
+}
+
 
 .navbar a {
     float: left;
@@ -35,121 +53,90 @@
     float: right;
 }
 
-
 .row {
-
     display: flex;
     flex-wrap: wrap;
-
+    justify-content: center;
 }
 
-.side-content-left {
+.row.heading {
+    background-color: #DB53FB;
+}
 
+.side-content {
     flex: 35%;
     background-color: lightgray;
     padding: 20px;
-
 }
 
-.side-content-right {
-
-    flex: 35%;
-    background-color: lightgray;
-    padding: 20px;
-
-}
-
-.side-content-left img {
-
-        width: 100%;
-        display: block;
-        
-        border-style: solid;
-        border-width: 10px;
-        border-color: #333;
-}
-
-.side-content-right img {
-
+.side-content img {
     width: 100%;
     display: block;
-    
     border-style: solid;
     border-width: 10px;
     border-color: #333;
 }
 
-.main-content-right {
-
+.main-content {
     flex: 65%;
     background-color: white;
     padding: 20px;
-
 }
 
-.main-content-left {
-
-    flex: 65%;
-    background-color: white;
-    padding: 20px;
-
-}
 .footer {
-
     text-align: center;
     background-color: darkgray;
-
 }
 
 .caption {
-
     text-align: center;
     font-weight: bold;
     margin-top: 4px;
-
 }
 
 .package-table {
-
     width: 85%;
     height: 500px;
 
     border-collapse: collapse;
-    /* table-layout: fixed; */
 
     margin-left: auto;
     margin-right: auto;
-    text-align: center;
+
+    min-width: 500px;
 
 }
 
-tr.table-row  {
+@media only screen and (max-width: 500px) {
 
+    .main-content {
+
+        overflow-x: scroll;
+        flex: 100%;
+
+
+    }
+
+}
+
+tr.table-row {
     border-bottom: solid thin;
-
 }
 
 .package-table th {
-
     min-width: 10vw;
     color: red;
-
 }
 
-
-
 .left-align {
-
     text-align: left;
-
 }
 
 .wide {
     width: 30vw;
- }
+}
 
-
- /* th {
+/* th {
 
     color:red;
     border-style: solid;

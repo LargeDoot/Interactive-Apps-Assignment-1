@@ -22,8 +22,7 @@
 
     <div class="header">
 
-        <h1>Music Site</h1>
-        <p>About - An insight into the creation of this website.</p>
+        <img class="header" src="images/logos/logo-background-large.jpg" alt="Company logo 'Potify'">
 
     </div>
 
@@ -32,22 +31,23 @@
         <a href="home.html">Home</a>
         <a href="music-selection.html">Music Selection</a>
         <a href="example-artist.html">Featured Artist</a>
-        <a class="floatright" href="about.html">About Us</a>
+        <a class="floatright currentpage" href="about.html">About Us</a>
 
     </div>
 
     <div class="row">
 
-        <div class="side-content-left">
+        <div class="side-content">
 
-            <img src="images/v1.png" alt="Version one of this site's home page, with just basic layout and styling">
+            <img src="images/version-screenshots/v1.png" alt="Version one of this site's home page, with just basic layout and styling">
             <p class="caption">Version one of the site.</p>
 
         </div>
 
-        <div class="main-content-right">
+        <div class="main-content">
             <ul>
-                <li>Used tutorial at "https://www.w3schools.com/howto/howto_make_a_website.asp" to create a basic layout
+                <li>Used tutorial at "https://www.w3schools.com/howto/howto_make_a_website.asp" to create a basic
+                    layout
                     for the site, including:</li>
                 <ul>
                     <li>a header</li>
@@ -71,36 +71,37 @@
 
     <div class="row">
 
+        <div class="side-content">
+
+            <img src="images/version-screenshots/v2.png" alt="Version two of this site's home page, that shows the table that was added to the home page.">
+            <p class="caption">The table added to the homepage.</p>
+
+        </div>
+
+        <div class="main-content">
 
 
-        <div class="main-content-left">
+            <p>Next, I created a price and package comparison table on the main page that scales with smaller
+                devices well. I had a couple problems with the creation of this table, such as: </p>
+
             <ul>
-                <li>Used tutorial at "https://www.w3schools.com/howto/howto_make_a_website.asp" to create a basic layout
-                    for the site, including:</li>
-                <ul>
-                    <li>a header</li>
-                    <li>a navigation bar</li>
-                    <li>a side contect area</li>
-                    <li>a main content area</li>
-                    <li>and a footer</li>
-                </ul>
-                <li>Added CSS classes for use on this 'About' page.</li>
-                <ul>
-                    <li>Class for images on the page to give them a thick border and the correct sizing</li>
-                    <li>Class for the captions below the images.</li>
-                </ul>
-                <li>Added first contect to this 'About' page!</li>
-
+                <li>getting horizontal borders to render properly</li>
+                <li>stopping the table from collapsing on itself when on a narrow display</li>
+                <li>getting the first column to be wider than the rest</li>
             </ul>
 
+            <p>To get around these problems I:</p>
+
+            <ul>
+                <li>set "border-collapse" to "collapse"</li>
+                <li>set "min-width" valuses for the table elements (in vw units)</li>
+                <li>set "width" in vw units for the first column</li>
+            </ul>
+
+            <p>And of course, added more contect to this 'About' page!</p>
+
         </div>
 
-        <div class="side-content-right">
-
-            <img src="images/v1.png" alt="Version one of this site's home page, with just basic layout and styling">
-            <p class="caption">Version one of the site.</p>
-
-        </div>
     </div>
 
     <div class="footer">
