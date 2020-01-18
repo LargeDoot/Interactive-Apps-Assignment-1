@@ -1,14 +1,16 @@
 <!-- Music Selection page for CO1706 Assignment 1 -->
 <!--            By Ethan W                        -->
 
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 
-    <title>Music Site</title>
+    <title>Potify - Online Music</title>
 
     <link rel="stylesheet" type="text/css" href="stylesheet.css">
+    <script src="script.js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Site created for assignment 1 of CO1706!">
@@ -36,15 +38,151 @@
 
     <div class="row">
 
-        <div class="side-content-left">
+        <div class="side-content">
 
-            Main content
+            <div>
+
+
+                    <h1>Music Selection <br>browse our collection of music!<br> </h1>
+                    Use this page to discover your favorite artists and tracks. You can filter by genre by typing below!
+                    <br><br>
+
+
+            </div>
+
+            <div>
+
+                <!-- Next line from  w3Schools @ https://www.w3schools.com/howto/howto_js_filter_table.asp (edited slightly) -->
+                <input type="text" id="search-box" onkeyup="searchFunction()" placeholder="Search by genre...">
+
+            </div>
 
         </div>
 
-        <div class="main-content-right">
+        <div class="main-content">
 
-            Side Content
+            <table id="music-table">
+
+                <tr class="row-border-bottom">
+                    <th class="empty-col"></th>
+                    <th>Genre</th>
+                    <th>Artist</th>
+                    <th>Album</th>
+                </tr>
+
+                <tr>
+                    <td><a>▶</a></td>
+                    <td>Rap</td>
+                    <td>Disoriented Scoundrel</td>
+                    <td>Clap in the Recess</td>
+                </tr>
+
+                <tr>
+                    <td><a>▶</a></td>
+                    <td>Rap</td>
+                    <td>Skittlz</td>
+                    <td>The True Thin Ghosty</td>
+                </tr>
+
+                <tr>
+                    <td><a>▶</a></td>
+                    <td>Chart</td>
+                    <td>Slow Hatter</td>
+                    <td>Not Scared</td>
+                </tr>
+
+                <tr>
+                    <td><a>▶</a></td>
+                    <td>Chart</td>
+                    <td>Mallard</td>
+                    <td>Models and Controllers</td>
+                </tr>
+
+                <tr>
+                    <td><a>▶</a></td>
+                    <td>R&B</td>
+                    <td>Frank Saturn</td>
+                    <td>Non Orthodox Sound System</td>
+                </tr>
+
+                <tr>
+                    <td><a>▶</a></td>
+                    <td>R&B</td>
+                    <td>Creepy Cat</td>
+                    <td>Catstyle</td>
+                </tr>
+
+                <tr>
+                    <td><a>▶</a></td>
+                    <td>Rock</td>
+                    <td>Watering Hole</td>
+                    <td>Daybreak Triumph</td>
+                </tr>
+
+                <tr>
+                    <td><a>▶</a></td>
+                    <td>Rock</td>
+                    <td>Great Big Trucks</td>
+                    <td>Halfway Horatio</td>
+                </tr>
+
+                <tr>
+                    <td><a>▶</a></td>
+                    <td>Classic Rock</td>
+                    <td>Mains Power</td>
+                    <td>Pathway to Purgatory</td>
+                </tr>
+
+                <tr>
+                    <td><a>▶</a></td>
+                    <td>Classic Rock</td>
+                    <td>Monarchy</td>
+                    <td>Read All About It</td>
+                </tr>
+
+                <tr>
+                    <td><a>▶</a></td>
+                    <td>Indie</td>
+                    <td>The Boulder Perennials</td>
+                    <td>The Boulder Perennials</td>
+                </tr>
+
+                <tr>
+                    <td><a>▶</a></td>
+                    <td>Indie</td>
+                    <td>Polar Primates</td>
+                    <td>What People Claim About Me Is Incorrect</td>
+                </tr>
+
+                <tr>
+                    <td><a>▶</a></td>
+                    <td>Dance</td>
+                    <td>Old Chaos</td>
+                    <td>Entity</td>
+                </tr>
+
+                <tr>
+                    <td><a>▶</a></td>
+                    <td>Dance</td>
+                    <td>Deceased Rod3nt</td>
+                    <td>Get Abraded</td>
+                </tr>
+
+                <tr>
+                    <td><a>▶</a></td>
+                    <td>Metal</td>
+                    <td>Hellsinkers</td>
+                    <td>En Fin Samling Av Låtar</td>
+                </tr>
+
+                <tr>
+                    <td><a>▶</a></td>
+                    <td>Metal</td>
+                    <td>Kïllürz</td>
+                    <td>Bëlöw Utöpiä</td>
+                </tr>
+
+            </table>
 
         </div>
 
@@ -52,7 +190,7 @@
 
     <div class="footer">
 
-        <h2>Footer</h2>
+        <h2>Find us on Facebook and Twitter @potifyMusic</h2>
 
     </div>
 

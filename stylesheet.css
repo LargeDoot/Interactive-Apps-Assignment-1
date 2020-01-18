@@ -11,10 +11,6 @@ p, ul {
     overflow-wrap: break-word;
 }
 
-div {
-    max-width: 100%;
-}
-
 .header {
     text-align: center;
     padding: 30px;
@@ -65,8 +61,11 @@ div {
 
 .side-content {
     flex: 35%;
+    flex-direction: column;
     background-color: lightgray;
     padding: 20px;
+
+    display: flex;
 }
 
 .side-content img {
@@ -94,15 +93,15 @@ div {
     margin-top: 4px;
 }
 
-.package-table {
+#package-table {
     width: 85%;
-    height: 500px;
+    height: 540px;
 
     border-collapse: collapse;
 
     margin-left: auto;
     margin-right: auto;
-    margin-top: 2vw;
+    margin-top: auto;
     margin-bottom: auto;
 
     text-align: center;
@@ -112,6 +111,96 @@ div {
     align-items: bottom;
 
 }
+
+#package-table th {
+    min-width: 10vw;
+    height: 28%;
+    vertical-align: middle;
+    color: red;
+}
+
+#package-table td {
+
+    height: 18%;
+
+}
+
+#package-table tr {
+
+    border-bottom: solid thin;
+
+}
+
+
+#music-table {
+    width: 100%;
+    height: auto;
+
+    border-collapse: collapse;
+
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: auto;
+    margin-bottom: auto;
+
+    text-align: left;
+
+    min-width: 500px;
+
+    table-layout: fixed;
+}
+
+#music-table th {
+
+    border-bottom: solid thin;
+    height: 35px;
+
+}
+
+#music-table tr:nth-child(odd) {
+
+    background-color: #eee;
+
+}
+
+#music-table tr:hover {
+
+    background-color: #ddd;
+
+}
+
+/* This ensure that hovering on the headings doesnt highlight */
+#music-table tr:first-child {
+
+    background-color: white;
+
+}
+
+#music-table td:first-child {
+
+    text-align: center;
+
+}
+
+#music-table td a {
+
+    text-decoration: none;
+    color: black;
+
+}
+
+/* Styling for the search box is from https://www.w3schools.com/howto/howto_js_filter_table.asp */
+/* Background image used is also from https://www.w3schools.com/css/searchicon.png */
+#search-box {
+    background-image: url("images/search-icon.png"); /* Add a search icon to input */
+    background-position: 10px 12px; /* Position the search icon */
+    background-repeat: no-repeat; /* Do not repeat the icon image */
+    width: 100%; /* Full-width */
+    font-size: 16px; /* Increase font-size */
+    padding: 12px 20px 12px 40px; /* Add some padding */
+    border: 1px solid #ddd; /* Add a grey border */
+    margin-bottom: 12px; /* Add some space below the input */
+  }
 
 @media only screen and (max-width: 500px) {
 
@@ -125,15 +214,6 @@ div {
 
 }
 
-tr.table-row {
-    border-bottom: solid thin;
-}
-
-.package-table th {
-    min-width: 10vw;
-    color: red;
-}
-
 .left-align {
     text-align: left;
 }
@@ -142,14 +222,15 @@ tr.table-row {
     width: 30vw;
 }
 
-/* th {
+.empty-col {
 
-    color:red;
-    border-style: solid;
-    background-color: #1ABC9C;
-    padding: 1px;
-    margin-top: 10px;
-    margin-left: 10px;
-    margin-right: 10px;
-    https://stackoverflow.com/questions/34478694/how-to-set-table-border-less-then-cell-height
- } */
+    width: 100px;
+
+}
+
+/* Make the play button look clickable but do nothing */
+td a {
+
+    cursor: pointer;
+
+}
