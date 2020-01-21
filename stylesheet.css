@@ -5,12 +5,10 @@
 * {
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     box-sizing: border-box;
+    -moz-text-blink: blink;
 }
 
-p, ul {
-    overflow-wrap: break-word;
-}
-
+/* Header styling */
 .header {
     text-align: center;
     padding: 30px;
@@ -21,17 +19,19 @@ p, ul {
     flex: 100%;
 }
 
+/* Navbar styling */
 .navbar {
     background-color: #333;
     overflow: hidden;
     width: 100%;
 }
 
+/* Makes current page different colour */
 .currentpage {
-    background-color: #666;
+    background-color: black;
 }
 
-
+/* Navbar link styling */
 .navbar a {
     float: left;
     padding: 15px;
@@ -41,24 +41,29 @@ p, ul {
     font-weight: bold;
 }
 
+/* Hover colour for the menu bar */
 .navbar a:hover {
-    background-color: gray;
+    background-color: black;
 }
 
+/* Make about buttom float to the right */
 .navbar a.floatright {
     float: right;
 }
 
+/* Style for making flexboxes work properly */
 .row {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
 }
 
+/* Heading colour */
 .row.heading {
     background-color: #DB53FB;
 }
 
+/* Style for side content */
 .side-content {
     flex: 35%;
     flex-direction: column;
@@ -68,6 +73,7 @@ p, ul {
     display: flex;
 }
 
+/* Style for side content images (used on about page) */
 .side-content img {
     width: 100%;
     display: block;
@@ -76,23 +82,36 @@ p, ul {
     border-color: #333;
 }
 
+/* Style for main content */
 .main-content {
     flex: 65%;
     background-color: white;
     padding: 20px;
 }
 
+/* Make images display properly */
+.main-content img {
+    width: 100%;
+    display: block;
+    border-style: solid;
+    border-width: 10px;
+    border-color: #333;
+}
+
+/* Style for footer */
 .footer {
     text-align: center;
     background-color: darkgray;
 }
 
+/* Make captions centered and bold */
 .caption {
     text-align: center;
     font-weight: bold;
     margin-top: 4px;
 }
 
+/* Style for package table */
 #package-table {
     width: 85%;
     height: 540px;
@@ -108,10 +127,9 @@ p, ul {
 
     min-width: 500px;
 
-    align-items: bottom;
-
 }
 
+/* Style for table headers */
 #package-table th {
     min-width: 10vw;
     height: 28%;
@@ -119,19 +137,21 @@ p, ul {
     color: red;
 }
 
+/* Make height of rows the same */
 #package-table td {
 
     height: 18%;
 
 }
 
+/* Create border on bottom of each row only */
 #package-table tr {
 
     border-bottom: solid thin;
 
 }
 
-
+/* Styling for music selection table */
 #music-table {
     width: 100%;
     height: auto;
@@ -150,6 +170,7 @@ p, ul {
     table-layout: fixed;
 }
 
+/* Style for table headers */
 #music-table th {
 
     border-bottom: solid thin;
@@ -157,12 +178,15 @@ p, ul {
 
 }
 
+/* Make every other row shaded */
 #music-table tr:nth-child(odd) {
 
     background-color: #eee;
 
+
 }
 
+/* Add a hover colour */
 #music-table tr:hover {
 
     background-color: #ddd;
@@ -176,16 +200,17 @@ p, ul {
 
 }
 
+/* Make first column of a table centered */
 #music-table td:first-child {
 
     text-align: center;
 
 }
 
-#music-table td a {
+/* Make the play button look clickable but do nothing */
+td a {
 
-    text-decoration: none;
-    color: black;
+    cursor: pointer;
 
 }
 
@@ -202,6 +227,7 @@ p, ul {
     margin-bottom: 12px; /* Add some space below the input */
   }
 
+  /* Make tables scroll when screen is less than 500px */
 @media only screen and (max-width: 500px) {
 
     .main-content {
@@ -214,23 +240,61 @@ p, ul {
 
 }
 
+/* Left align */
 .left-align {
     text-align: left;
 }
 
+/* Make a column wider than the rest */
 .wide {
     width: 30vw;
 }
 
+/* Provide proper sizing for a column with no heading */
 .empty-col {
 
     width: 100px;
 
 }
 
-/* Make the play button look clickable but do nothing */
-td a {
+/* columns for images to be stored inside (default 3 columns) */
+.column {
 
-    cursor: pointer;
+    flex-basis: 33%;
+    padding: 0px;
 
 }
+
+/* Prevent images in featured artist page from overlapping */
+.column img {
+
+    width: 90%;
+    
+}
+
+/* Media Quiries to make the images display properly on different screen sizes */
+/* 2 columns */
+@media only screen and (min-width: 530px) and (max-width: 1280px) {
+
+    .column {
+
+        flex: 45%;
+
+
+    }
+
+}
+
+/* 1 column */
+@media only screen and (max-width: 530px) {
+
+    .column {
+
+        flex: 100%;
+
+
+    }
+
+}
+
+
