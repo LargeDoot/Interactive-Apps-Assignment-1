@@ -20,6 +20,12 @@
 
 <body>
 
+    <div class="skip-content">
+
+        <a href="#anchor-point">Skip to content</a>
+
+    </div>
+
     <div class="header">
 
         <img class="header" src="images/logos/logo-background-large.jpg" alt="Company logo 'Potify'">
@@ -39,32 +45,36 @@
 
         <div class="side-content">
 
-            <img src="images/version-screenshots/v1.png" alt="Version one of this site's home page, with just basic layout and styling">
+            <img id="anchor-point" src="images/version-screenshots/v1.png" alt="Version one of this site's home page, with just basic layout and styling">
             <p class="caption">Version one of the site.</p>
 
         </div>
 
         <div class="main-content">
-            <p>
-            <ul>
-                <li>Used tutorial at <a href="https://www.w3schools.com/howto/howto_make_a_website.asp">w3schools</a> to create a basic
-                    layout
-                    for the site, including:</li>
-                <ul>
-                    <li>a header</li>
-                    <li>a navigation bar</li>
-                    <li>a side contect area</li>
-                    <li>a main content area</li>
-                    <li>and a footer</li>
-                </ul>
-                <li>Added CSS classes for use on this 'About' page.</li>
-                <ul>
-                    <li>Class for images on the page to give them a thick border and the correct sizing</li>
-                    <li>Class for the captions below the images.</li>
-                </ul>
-                <li>Added first contect to this 'About' page!</li>
 
-            </ul>
+            <h1>About us</h1>
+
+            <p>
+                <ul>
+                    <li>Used tutorial at <a href="https://www.w3schools.com/howto/howto_make_a_website.asp">w3schools</a>
+                        to create a basic
+                        layout
+                        for the site, including:</li>
+                    <ul>
+                        <li>a header</li>
+                        <li>a navigation bar</li>
+                        <li>a side contect area</li>
+                        <li>a main content area</li>
+                        <li>and a footer</li>
+                    </ul>
+                    <li>Added CSS classes for use on this 'About' page.</li>
+                    <ul>
+                        <li>Class for images on the page to give them a thick border and the correct sizing</li>
+                        <li>Class for the captions below the images.</li>
+                    </ul>
+                    <li>Added first contect to this 'About' page!</li>
+
+                </ul>
             </p>
         </div>
 
@@ -150,6 +160,389 @@
                 screen sizes. When the screen gets smallerThis is what I found most difficult when creating this page.</p>
 
             <p>I was able to re-use a lot of classes to do with images in this page, so not much to say.</p>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="side-content">
+
+            <img src="images/version-screenshots/v4.png" alt="Version four of this site's home page, that shows the newly implemented featured artist page.">
+            <p class="caption">The newly implemented music selection page.</p>
+
+        </div>
+
+        <div class="main-content">
+
+            <br><br>
+
+            <!-- WCAG Guideline table used from https://www.wuhcag.com/wcag-checklist/ -->
+            <table id="wcag-table">
+
+                <tr>
+                    <td><strong>Guideline</strong></td>
+                    <td><strong>Summary</strong></td>
+                </tr>
+
+                <tr>
+                    <td><a href="https://www.wuhcag.com/non-text-content/" target="_blank">1.1.1 &#8211; Non-text
+                            Content</a><br><br>
+
+                        Provide text alternatives for non-text content
+                    </td>
+                    <td>
+                        <ul>
+                            <li>All images have a text alternative</li>
+                            <li>There is no video or audio content to have descriptions for</li>
+                            <li>All fields are text</li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><a href="https://www.wuhcag.com/audio-only-video-only-prerecorded/" target="_blank">1.2.1
+                            &#8211;
+                            Audio-only and Video-only (Pre-recorded)</a><br><br>
+
+                        Provide an alternative to video-only and audio-only content
+                    </td>
+                    <td>
+                        <ul>
+                            <li>There is no video or audio content to provide an alternative for</li>
+                            <li>In future (when music is available for streaming) I will add alternatives to the audio</li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><a href="https://www.wuhcag.com/captions-prerecorded/" target="_blank">1.2.2 &#8211;
+                            Captions
+                            (Pre-recorded)</a><br><br>
+
+                        Provide captions for videos with audio
+                    </td>
+                    <td>
+                        <ul>
+                            <li>This site does not contain any video to provide subtitles for</li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><a href="https://www.wuhcag.com/audio-description-media-alternative-prerecorded/" target="_blank">1.2.3
+                            &#8211; Audio Description or Media Alternative (Pre-recorded)</a><br><br>
+
+                        Video with audio has a second alternative
+                    </td>
+                    <td>
+                        <ul>
+                            <li>This site does not contain any video to provide a second alternative for</li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><a href="https://www.wuhcag.com/info-and-relationships/" target="_blank">1.3.1 &#8211; Info
+                            and
+                            Relationships</a><br><br>
+
+                        Logical structure
+                    </td>
+                    <td>
+                        <ul>
+                            <li>Each page is simple and not very long, each marked with a bold heading</li>
+                            <li>All headings are inside of &lt;h1&gt; tags</li>
+                            <li>Correct HTML Is used for page structure.</li>
+                            <li>All HTML is validated using the W3C validator.</li>
+                            <li>All forms have clear labels</li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><a href="https://www.wuhcag.com/meaningful-sequence/" target="_blank">1.3.2 &#8211;
+                            Meaningful Sequence</a><br><br>
+
+                        Present content in a meaningful order
+                    </td>
+                    <td>
+                        <ul>
+                            <li>All paragraphs are in order.</li>
+                            <li>Headings are clear</li>
+                            <li>All HTML is validated using the W3C validator.</li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><a href="https://www.wuhcag.com/sensory-characteristics/" target="_blank">1.3.3 &#8211;
+                            Sensory
+                            Characteristics</a><br><br>
+
+                        Use more than one sense for instructions
+                    </td>
+                    <td>
+                        <ul>
+                            <li>All areas of the website are simple to find when given instructions.</li>
+                            <li>
+                                Elements all have more than one sense for instructions
+                                <ul>
+                                    <li>(i.e. the white searchbox labelled "Search By Genre" on the left)</li>
+                                </ul>
+                            </li>
+                            <li>No elements rely on sound (this makes it hard to give instructions)</li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><a href="https://www.wuhcag.com/use-of-colour/" target="_blank">1.4.1 &#8211; Use of Colour</a><br><br>
+                        Don’t use presentation that relies solely on colour
+                    </td>
+                    <td>
+                        <ul>
+                            <li>No instructions rely on colour alone.</li>
+                            <li>Other information (like charts and graphs) must not rely on colour alone.</li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><a href="https://www.wuhcag.com/audio-control/" target="_blank">1.4.2 &#8211; Audio Control</a><br><br>
+
+                        Don’t play audio automatically
+                    </td>
+                    <td>
+                        <ul>
+                            <li>The site does not contain any audio that plays automatically.</li>
+                            <li>When audio is added (in future), there will be user controls so that the user can
+                                choose when to hear it.</li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><a href="https://www.wuhcag.com/keyboard/" target="_blank">2.1.1 &#8211; Keyboard</a><br><br>
+
+                        Accessible by keyboard only
+                    </td>
+                    <td>
+                        <ul>
+                            <li>All parts of the webiste are accessible through the use of the keyboard.</li>
+                            <li>HTML is structured and validated properly which helps keyboard accessibility</li>
+                            <li>There are no elements of the site that require timed keystrokes.</li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><a href="https://www.wuhcag.com/no-keyboard-trap/" target="_blank">2.1.2 &#8211; No
+                            Keyboard Trap</a><br><br>
+
+                        Don't trap keyboard users
+                    </td>
+                    <td>
+                        <ul>
+                            <li>Upon testing, there are no area of the site that get a keyboard-only user trapped.</li>
+                            <li>All elements can be navigated by just using a keyboard.</li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><a href="https://www.wuhcag.com/timing-adjustable/" target="_blank">2.2.1 &#8211; Timing
+                            Adjustable</a><br><br>
+
+                        Time limits have user controls
+                    </td>
+                    <td>
+                        <ul>
+                            <li>There are no time controlled elements in this site.</li>
+                            <li>If there was time controlled elements, I would have included an option to extend it</li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><a href="https://www.wuhcag.com/pause-stop-hide/" target="_blank">2.2.2 &#8211; Pause,
+                            Stop, Hide</a><br><br>
+
+                        Provide user controls for moving content
+                    </td>
+                    <td>
+                        <ul>
+                            <li>There is no moving content in this site.</li>
+                            <li>If there was, I would have implemented controls for the user to stop, pause, hide etc.</li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><a href="https://www.wuhcag.com/three-flashes-or-below/" target="_blank">2.3.1 &#8211;
+                            Three Flashes or
+                            Below</a><br><br>
+
+                        No content flashes more than three times per second
+                    </td>
+                    <td>
+                        <ul>
+                            <li>Nothing in this site flashes.</li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><a href="https://www.wuhcag.com/bypass-blocks/" target="_blank">2.4.1 &#8211; Bypass Blocks</a><br><br>
+
+                        Provide a ‘Skip to Content’ link
+                    </td>
+                    <td>
+                        <ul>
+                            <li>For each page I have added a 'skip to content' link.</li>
+                            <li>The link will take the user past the menu and to the content.</li>
+                            <li>This allows users using screen readers the option to skip the repetitive menu.</li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><a href="https://www.wuhcag.com/page-titled/" target="_blank">2.4.2 &#8211; Page Titled</a><br><br>
+
+                        Use helpful and clear page titles
+                    </td>
+                    <td>
+                        <ul>
+                            <li>Each page has a clear and helpful name, displayed in larger text.</li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><a href="https://www.wuhcag.com/focus-order/" target="_blank">2.4.3 &#8211; Focus Order</a><br><br>
+
+                        Logical order
+                    </td>
+                    <td>
+                        <ul>
+                            <li>Everything on the site is laid out in an understandable way.</li>
+                            <li>Tabbing through each page, the user will first tab through the menu, then the side
+                                content, then the main content (logical top to bottom, left to right)</li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><a href="https://www.wuhcag.com/link-purpose-in-context/" target="_blank">2.4.4 &#8211;
+                            Link Purpose (In
+                            Context)</a><br><br>
+
+                        Every link’s purpose is clear from its context
+                    </td>
+                    <td>
+                        <ul>
+                            <li>All links are text, and provide a clear purpose from either their text or the content
+                                surrounding them.</li>
+                            <li>The site has no links that are images or other media.</li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><a href="https://www.wuhcag.com/language-of-page/" target="_blank">3.1.1 &#8211; Language
+                            of Page</a><br><br>
+
+                        Page has a language assigned
+                    </td>
+                    <td>
+                        <ul>The language of all pages is declared before the head of each page.</ul>
+                        <li>Language is set to "EN".</li>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><a href="https://www.wuhcag.com/on-focus/" target="_blank">3.2.1 &#8211; On Focus</a><br><br>
+
+                        Elements do not change when they receive focus
+                    </td>
+                    <td>
+                        <ul>
+                            <li>No automatic actoions are performed when the user takes focus on an element.</li>
+                            <li>Nothing automatically jumps.</li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><a href="https://www.wuhcag.com/on-input/" target="_blank">3.2.2 &#8211; On Input</a><br><br>
+
+                        Elements do not change when they receive input
+                    </td>
+                    <td>
+                        <ul>
+                            <li>No automatic actoions are performed when the site recieves a user input.</li>
+                            <li>Forms do not automatically jump once the user has filled them in. (irrelevant but the site does have one text entry at this stage)</li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><a href="https://www.wuhcag.com/error-identification/" target="_blank">3.3.1 &#8211; Error
+                            Identification</a><br><br>
+
+                        Clearly identify input errors
+                    </td>
+                    <td>
+                        <ul>
+                            <li>Due to the nature of the site, there is no change for the user to input something invalid, so this does not apply here.</li>
+                            <li>In future verrsions, I would ensure that all fields are verified and give an explanation if they are invalid.</li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><a href="https://www.wuhcag.com/labels-or-instructions/" target="_blank">3.3.2 &#8211;
+                            Labels or
+                            Instructions</a><br><br>
+
+                        Label elements and give instructions
+                    </td>
+                    <td>
+                        <ul>
+                            <li>The only text input is labelled clearly.</li>
+                            <li>No fields require a certain format.</li>
+                            <li>No fields are compulsary.</li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><a href="https://www.wuhcag.com/parsing/" target="_blank">4.1.1 &#8211; Parsing</a><br><br>
+
+                        No major code errors
+                    </td>
+                    <td>
+                        <ul>
+                            <li>The HTML has all been verified using the W3S Validator.</li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><a href="https://www.wuhcag.com/name-role-value/" target="_blank">4.1.2 &#8211; Name, Role,
+                            Value</a><br><br>
+
+                        Build all elements for accessibility
+                    </td>
+                    <td>
+                        <ul>
+                            <li>As above, all code was checked for accessibility through the W3S validator.</li>
+                        </ul>
+                    </td>
+                </tr>
+
+            </table>
 
         </div>
 

@@ -8,6 +8,16 @@
     -moz-text-blink: blink;
 }
 
+/* Skip content styling */
+.skip-content {
+    text-align: right;
+    background-color: #DB53FB;
+
+    padding-right: 5px;
+
+    flex: 100%;
+}
+
 /* Header styling */
 .header {
     text-align: center;
@@ -207,6 +217,17 @@
 
 }
 
+/* Style for WCAG table */
+#wcag-table {
+
+    width: 90%;
+
+    border-collapse: collapse;
+
+    text-align: left;
+
+}
+
 /* Make the play button look clickable but do nothing */
 td a {
 
@@ -294,6 +315,12 @@ td a {
 
 
     }
+
+}
+
+#justify {
+
+    text-align: justify;
 
 }
 
