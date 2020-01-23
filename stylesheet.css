@@ -221,10 +221,15 @@
 #wcag-table {
 
     width: 90%;
-
     border-collapse: collapse;
-
     text-align: left;
+
+}
+
+/* Create border on bottom of each row only */
+#wcag-table tr {
+
+    border-bottom: solid thin;
 
 }
 

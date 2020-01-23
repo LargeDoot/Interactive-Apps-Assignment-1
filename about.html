@@ -28,13 +28,13 @@
 
     <div class="header">
 
-        <img class="header" src="images/logos/logo-background-large.jpg" alt="Company logo 'Potify'">
+        <a href="index.html"><img class="header" src="images/logos/logo-background-large.jpg" alt="Company logo 'Potify'"></a>
 
     </div>
 
     <div class="navbar">
 
-        <a href="home.html">Home</a>
+        <a href="index.html">Home</a>
         <a href="music-selection.html">Music Selection</a>
         <a href="example-artist.html">Featured Artist</a>
         <a class="floatright currentpage" href="about.html">About Us</a>
@@ -45,8 +45,7 @@
 
         <div class="side-content">
 
-            <img id="anchor-point" src="images/version-screenshots/v1.png" alt="Version one of this site's home page, with just basic layout and styling">
-            <p class="caption">Version one of the site.</p>
+            <a id="anchor-point"></a>
 
         </div>
 
@@ -55,11 +54,44 @@
             <h1>About us</h1>
 
             <p>
-                <ul>
-                    <li>Used tutorial at <a href="https://www.w3schools.com/howto/howto_make_a_website.asp">w3schools</a>
-                        to create a basic
-                        layout
-                        for the site, including:</li>
+                Welcome to the about page! <br>
+                While building the site, I went for the company colour as the main colour in the heading, and to go for
+                a more basic colour scheme for the rest of the content. I ensured that the colours I chose would have a
+                contrast value higher than 5 to ensure the accessibility of the site. <br>
+                Also I ketp in mind that the app had to be suitable for mobile, so I added some media quiries alongside
+                the relative sizing of most elements to make the site mobile-friendly. The media quiries make the
+                tables in the site become horizonally scrollable when the screen becomes too small to view it.<br>
+                I tried to keep each page simple in terms of content and functionallity, so that the user is less
+                likely to lose focus, and makes it easier to understand.<br>
+                Making this site, I tried to have accessibility in mind throughout and hopefully have created a very
+                accessible site. I have gone through the WCAG guidelines and have listed why I think my site meets each
+                point at the bottom of this page.<br><br>
+
+                Below is a log of each major change, followed by a table showing the WCAG guidelines I have met to
+                atchieve level A compliance.
+            </p>
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        <div class="side-content">
+
+            <img src="images/version-screenshots/v1.png" alt="Version one of this site's home page, with just basic layout and styling">
+            <p class="caption">Version one of the site.</p>
+
+        </div>
+
+        <div class="main-content">
+
+
+            <ul>
+                <li>Used tutorial at <a href="https://www.w3schools.com/howto/howto_make_a_website.asp">w3schools</a>
+                    to create a basic
+                    layout
+                    for the site, including:</li>
+                <li>
                     <ul>
                         <li>a header</li>
                         <li>a navigation bar</li>
@@ -67,15 +99,18 @@
                         <li>a main content area</li>
                         <li>and a footer</li>
                     </ul>
-                    <li>Added CSS classes for use on this 'About' page.</li>
+                </li>
+                <li>Added CSS classes for use on this 'About' page.</li>
+                <li>
                     <ul>
                         <li>Class for images on the page to give them a thick border and the correct sizing</li>
                         <li>Class for the captions below the images.</li>
                     </ul>
-                    <li>Added first contect to this 'About' page!</li>
+                </li>
+                <li>Added first contect to this 'About' page!</li>
 
-                </ul>
-            </p>
+            </ul>
+
         </div>
 
     </div>
@@ -124,7 +159,7 @@
 
         <div class="main-content">
 
-            <br><br>
+            <br>
             <p>For the next stage, I implemented the music selection page which contains a table with a set of example
                 songs/albums that will eventually be available to the clients users. The table can be filtered by genre
                 using a search box located beside the table. A few things I used for this page were:</p>
@@ -153,7 +188,7 @@
 
         <div class="main-content">
 
-            <br><br>
+            <br>
             <p>For the next stage, I implemented the featured artist page that shows off an artist and their work. The
                 page has a small biography on the left, and a selection of album artwork on the right. I used flexboxes
                 for the images and have created two media queries to arrange the images differently with different
@@ -169,26 +204,26 @@
 
         <div class="side-content">
 
-            <img src="images/version-screenshots/v4.png" alt="Version four of this site's home page, that shows the newly implemented featured artist page.">
-            <p class="caption">The newly implemented music selection page.</p>
+            <img src="images/version-screenshots/v5.png" alt="Version four of this site's home page, that shows the newly implemented featured artist page.">
+            <p class="caption">The final version of the home page.</p>
 
         </div>
 
         <div class="main-content">
 
-            <br><br>
+            <br>
 
             <!-- WCAG Guideline table used from https://www.wuhcag.com/wcag-checklist/ -->
             <table id="wcag-table">
 
                 <tr>
                     <td><strong>Guideline</strong></td>
-                    <td><strong>Summary</strong></td>
+                    <td><strong>How this site meets the criteria</strong></td>
                 </tr>
 
                 <tr>
                     <td><a href="https://www.wuhcag.com/non-text-content/" target="_blank">1.1.1 &#8211; Non-text
-                            Content</a><br><br>
+                            Content</a><br>
 
                         Provide text alternatives for non-text content
                     </td>
@@ -204,7 +239,7 @@
                 <tr>
                     <td><a href="https://www.wuhcag.com/audio-only-video-only-prerecorded/" target="_blank">1.2.1
                             &#8211;
-                            Audio-only and Video-only (Pre-recorded)</a><br><br>
+                            Audio-only and Video-only (Pre-recorded)</a><br>
 
                         Provide an alternative to video-only and audio-only content
                     </td>
@@ -219,7 +254,7 @@
                 <tr>
                     <td><a href="https://www.wuhcag.com/captions-prerecorded/" target="_blank">1.2.2 &#8211;
                             Captions
-                            (Pre-recorded)</a><br><br>
+                            (Pre-recorded)</a><br>
 
                         Provide captions for videos with audio
                     </td>
@@ -232,7 +267,7 @@
 
                 <tr>
                     <td><a href="https://www.wuhcag.com/audio-description-media-alternative-prerecorded/" target="_blank">1.2.3
-                            &#8211; Audio Description or Media Alternative (Pre-recorded)</a><br><br>
+                            &#8211; Audio Description or Media Alternative (Pre-recorded)</a><br>
 
                         Video with audio has a second alternative
                     </td>
@@ -246,7 +281,7 @@
                 <tr>
                     <td><a href="https://www.wuhcag.com/info-and-relationships/" target="_blank">1.3.1 &#8211; Info
                             and
-                            Relationships</a><br><br>
+                            Relationships</a><br>
 
                         Logical structure
                     </td>
@@ -257,13 +292,14 @@
                             <li>Correct HTML Is used for page structure.</li>
                             <li>All HTML is validated using the W3C validator.</li>
                             <li>All forms have clear labels</li>
+                            <li>Homepage is called index.html so is the default page.</li>
                         </ul>
                     </td>
                 </tr>
 
                 <tr>
                     <td><a href="https://www.wuhcag.com/meaningful-sequence/" target="_blank">1.3.2 &#8211;
-                            Meaningful Sequence</a><br><br>
+                            Meaningful Sequence</a><br>
 
                         Present content in a meaningful order
                     </td>
@@ -279,7 +315,7 @@
                 <tr>
                     <td><a href="https://www.wuhcag.com/sensory-characteristics/" target="_blank">1.3.3 &#8211;
                             Sensory
-                            Characteristics</a><br><br>
+                            Characteristics</a><br>
 
                         Use more than one sense for instructions
                     </td>
@@ -293,12 +329,13 @@
                                 </ul>
                             </li>
                             <li>No elements rely on sound (this makes it hard to give instructions)</li>
+                            <li>The logo at the top of each page will take the user home.</li>
                         </ul>
                     </td>
                 </tr>
 
                 <tr>
-                    <td><a href="https://www.wuhcag.com/use-of-colour/" target="_blank">1.4.1 &#8211; Use of Colour</a><br><br>
+                    <td><a href="https://www.wuhcag.com/use-of-colour/" target="_blank">1.4.1 &#8211; Use of Colour</a><br>
                         Don’t use presentation that relies solely on colour
                     </td>
                     <td>
@@ -310,7 +347,7 @@
                 </tr>
 
                 <tr>
-                    <td><a href="https://www.wuhcag.com/audio-control/" target="_blank">1.4.2 &#8211; Audio Control</a><br><br>
+                    <td><a href="https://www.wuhcag.com/audio-control/" target="_blank">1.4.2 &#8211; Audio Control</a><br>
 
                         Don’t play audio automatically
                     </td>
@@ -324,7 +361,7 @@
                 </tr>
 
                 <tr>
-                    <td><a href="https://www.wuhcag.com/keyboard/" target="_blank">2.1.1 &#8211; Keyboard</a><br><br>
+                    <td><a href="https://www.wuhcag.com/keyboard/" target="_blank">2.1.1 &#8211; Keyboard</a><br>
 
                         Accessible by keyboard only
                     </td>
@@ -339,7 +376,7 @@
 
                 <tr>
                     <td><a href="https://www.wuhcag.com/no-keyboard-trap/" target="_blank">2.1.2 &#8211; No
-                            Keyboard Trap</a><br><br>
+                            Keyboard Trap</a><br>
 
                         Don't trap keyboard users
                     </td>
@@ -353,7 +390,7 @@
 
                 <tr>
                     <td><a href="https://www.wuhcag.com/timing-adjustable/" target="_blank">2.2.1 &#8211; Timing
-                            Adjustable</a><br><br>
+                            Adjustable</a><br>
 
                         Time limits have user controls
                     </td>
@@ -367,7 +404,7 @@
 
                 <tr>
                     <td><a href="https://www.wuhcag.com/pause-stop-hide/" target="_blank">2.2.2 &#8211; Pause,
-                            Stop, Hide</a><br><br>
+                            Stop, Hide</a><br>
 
                         Provide user controls for moving content
                     </td>
@@ -382,7 +419,7 @@
                 <tr>
                     <td><a href="https://www.wuhcag.com/three-flashes-or-below/" target="_blank">2.3.1 &#8211;
                             Three Flashes or
-                            Below</a><br><br>
+                            Below</a><br>
 
                         No content flashes more than three times per second
                     </td>
@@ -394,7 +431,7 @@
                 </tr>
 
                 <tr>
-                    <td><a href="https://www.wuhcag.com/bypass-blocks/" target="_blank">2.4.1 &#8211; Bypass Blocks</a><br><br>
+                    <td><a href="https://www.wuhcag.com/bypass-blocks/" target="_blank">2.4.1 &#8211; Bypass Blocks</a><br>
 
                         Provide a ‘Skip to Content’ link
                     </td>
@@ -408,7 +445,7 @@
                 </tr>
 
                 <tr>
-                    <td><a href="https://www.wuhcag.com/page-titled/" target="_blank">2.4.2 &#8211; Page Titled</a><br><br>
+                    <td><a href="https://www.wuhcag.com/page-titled/" target="_blank">2.4.2 &#8211; Page Titled</a><br>
 
                         Use helpful and clear page titles
                     </td>
@@ -420,7 +457,7 @@
                 </tr>
 
                 <tr>
-                    <td><a href="https://www.wuhcag.com/focus-order/" target="_blank">2.4.3 &#8211; Focus Order</a><br><br>
+                    <td><a href="https://www.wuhcag.com/focus-order/" target="_blank">2.4.3 &#8211; Focus Order</a><br>
 
                         Logical order
                     </td>
@@ -435,8 +472,7 @@
 
                 <tr>
                     <td><a href="https://www.wuhcag.com/link-purpose-in-context/" target="_blank">2.4.4 &#8211;
-                            Link Purpose (In
-                            Context)</a><br><br>
+                            Link Purpose (In Context)</a><br>
 
                         Every link’s purpose is clear from its context
                     </td>
@@ -451,18 +487,20 @@
 
                 <tr>
                     <td><a href="https://www.wuhcag.com/language-of-page/" target="_blank">3.1.1 &#8211; Language
-                            of Page</a><br><br>
+                            of Page</a><br>
 
                         Page has a language assigned
                     </td>
                     <td>
-                        <ul>The language of all pages is declared before the head of each page.</ul>
-                        <li>Language is set to "EN".</li>
+                        <ul>
+                            <li>The language of all pages is declared before the head of each page.</li>
+                            <li>Language is set to "EN".</li>
+                        </ul>
                     </td>
                 </tr>
 
                 <tr>
-                    <td><a href="https://www.wuhcag.com/on-focus/" target="_blank">3.2.1 &#8211; On Focus</a><br><br>
+                    <td><a href="https://www.wuhcag.com/on-focus/" target="_blank">3.2.1 &#8211; On Focus</a><br>
 
                         Elements do not change when they receive focus
                     </td>
@@ -475,28 +513,31 @@
                 </tr>
 
                 <tr>
-                    <td><a href="https://www.wuhcag.com/on-input/" target="_blank">3.2.2 &#8211; On Input</a><br><br>
+                    <td><a href="https://www.wuhcag.com/on-input/" target="_blank">3.2.2 &#8211; On Input</a><br>
 
                         Elements do not change when they receive input
                     </td>
                     <td>
                         <ul>
                             <li>No automatic actoions are performed when the site recieves a user input.</li>
-                            <li>Forms do not automatically jump once the user has filled them in. (irrelevant but the site does have one text entry at this stage)</li>
+                            <li>Forms do not automatically jump once the user has filled them in. (irrelevant but the
+                                site does have one text entry at this stage)</li>
                         </ul>
                     </td>
                 </tr>
 
                 <tr>
                     <td><a href="https://www.wuhcag.com/error-identification/" target="_blank">3.3.1 &#8211; Error
-                            Identification</a><br><br>
+                            Identification</a><br>
 
                         Clearly identify input errors
                     </td>
                     <td>
                         <ul>
-                            <li>Due to the nature of the site, there is no change for the user to input something invalid, so this does not apply here.</li>
-                            <li>In future verrsions, I would ensure that all fields are verified and give an explanation if they are invalid.</li>
+                            <li>Due to the nature of the site, there is no change for the user to input something
+                                invalid, so this does not apply here.</li>
+                            <li>In future verrsions, I would ensure that all fields are verified and give an
+                                explanation if they are invalid.</li>
                         </ul>
                     </td>
                 </tr>
@@ -504,7 +545,7 @@
                 <tr>
                     <td><a href="https://www.wuhcag.com/labels-or-instructions/" target="_blank">3.3.2 &#8211;
                             Labels or
-                            Instructions</a><br><br>
+                            Instructions</a><br>
 
                         Label elements and give instructions
                     </td>
@@ -518,7 +559,7 @@
                 </tr>
 
                 <tr>
-                    <td><a href="https://www.wuhcag.com/parsing/" target="_blank">4.1.1 &#8211; Parsing</a><br><br>
+                    <td><a href="https://www.wuhcag.com/parsing/" target="_blank">4.1.1 &#8211; Parsing</a><br>
 
                         No major code errors
                     </td>
@@ -531,7 +572,7 @@
 
                 <tr>
                     <td><a href="https://www.wuhcag.com/name-role-value/" target="_blank">4.1.2 &#8211; Name, Role,
-                            Value</a><br><br>
+                            Value</a><br>
 
                         Build all elements for accessibility
                     </td>
