@@ -23,6 +23,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
+    <?php
+    require( "db_connection.php" );
+    require( "session.php" );
+    ?>
+
 </head>
 <body>
 <div class="container-fluid">
@@ -31,7 +36,7 @@
 
         <div class="container w-1200">
 
-            <a href="index.php" class="navbar-brand">
+            <a href="welcome.php" class="navbar-brand">
                 <img src="images/Potify_Logo.png" alt="Potify icon">
             </a>
 
@@ -44,15 +49,11 @@
                 <ul class="navbar-nav ml-auto">
 
                     <li class="nav-item float-right">
-                        <a class="nav-link px-4" href="offers.php">Go Premium</a>
+                        <a class="nav-link px-4" href="music-list.php">Track list</a>
                     </li>
 
                     <li class="nav-item float-right">
-                        <a class="nav-link border-left px-4 py-0 my-2" href="register.php">Register</a>
-                    </li>
-
-                    <li class="nav-item float-right">
-                        <a class="nav-link px-4" href="login.php">Login</a>
+                        <a class="nav-link border-left px-4 py-0 my-2" href="logout.php">Log out</a>
                     </li>
 
                 </ul>
@@ -70,8 +71,8 @@
 
             <div class="col-xl-9 col-lg-10">
 
-                <h1 class="display-2">Potify Music</h1>
-                <p>Music for everyone.</p>
+                <h1 class="display-2">Welcome, <?php echo( $_SESSION[ "username" ] ); ?> </h1>
+                <p>Find your music above!</p>
 
             </div>
 

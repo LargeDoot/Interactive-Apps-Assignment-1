@@ -70,8 +70,8 @@
 
             <div class="col-xl-9 col-lg-10">
 
-                <h1 class="display-2">Potify Music</h1>
-                <p>Music for everyone.</p>
+                <h1 class="display-2">Oops! Page not found...</h1>
+                <p>Try navigating using the buttons above</p>
 
             </div>
 

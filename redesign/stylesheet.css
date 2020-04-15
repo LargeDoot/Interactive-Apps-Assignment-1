@@ -1,7 +1,6 @@
 
-.fakeimg {
-    height: 200px;
-    background: #aaa;
+select option {
+    font-family: Arial;
 }
 
 .logo {
@@ -10,5 +9,17 @@
 }
 
 .w-1200 {
-    max-width:1201px
+    max-width:1200px;
+}
+
+.w-500 {
+    max-width:500px;
+}
+
+.pd-10 {
+    padding-bottom: 500px;
+}
+
+.underline-hover:hover {
+    text-decoration: underline;
 }
