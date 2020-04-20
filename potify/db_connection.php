@@ -6,4 +6,4 @@ define("password", "ChuZ1470");
 define("database", "ewilson17");
 
 
-$connection = mysqli_connect("localhost", "ewilson17", "ChuZ1470", "ewilson17");
+$connection =  new mysqli("localhost", "ewilson17", "ChuZ1470", "ewilson17");

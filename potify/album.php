@@ -42,14 +42,22 @@
 
 $albumID = $_GET[ "album_id" ];
 
-$query = "SELECT * FROM album WHERE album_id = " . $albumID . ";";
+$statement = $connection->prepare( "SELECT * FROM album WHERE album_id = ?" );
+$statement->bind_param( "s", $albumID );
 
-$result = mysqli_query( $connection, $query );
-$albumData = mysqli_fetch_assoc( $result );
+$statement->execute();
 
-$query = "SELECT * FROM tracks WHERE album_id = " . $albumID . ";";
+$result = $statement->get_result();
 
-$result = mysqli_query( $connection, $query );
+$albumData = $result->fetch_assoc();
+
+
+$statement = $connection->prepare( "SELECT * FROM tracks WHERE album_id = ?" );
+$statement->bind_param( "s", $albumID );
+
+$statement->execute();
+
+$result = $statement->get_result();
 
 
 ?>
@@ -73,7 +81,7 @@ $result = mysqli_query( $connection, $query );
                 <ul class="navbar-nav ml-auto">
 
                     <li class="nav-item float-right">
-                        <a class="nav-link px-4 active" href="music-list.php">Track list</a>
+                        <a class="nav-link px-4" href="music-list.php">Albums</a>
                     </li>
 
                     <li class="nav-item float-right">
@@ -87,7 +95,7 @@ $result = mysqli_query( $connection, $query );
     </nav>
 </div>
 
-<div class="container-fluid text-lg-left text-sm-center bg-primary text-white"
+<div class="container-fluid text-left bg-primary text-white"
      style="padding-top: 10vh; padding-bottom: 10vh">
 
     <div class="container mx-auto w-1200">
@@ -97,7 +105,7 @@ $result = mysqli_query( $connection, $query );
             <div class="col-xl-9 col-lg-10">
 
                 <h1 class="display-2"><?php echo( $albumData[ "album_name" ] ); ?></h1>
-                <p>By <?php echo( $albumData[ "artist" ] ); ?></p>
+                <p>An album by <?php echo( $albumData[ "artist" ] ); ?></p>
 
             </div>
 
@@ -123,20 +131,20 @@ $result = mysqli_query( $connection, $query );
             <tbody>
             <?php
 
-            while ( $albumTracks = mysqli_fetch_assoc( $result ) ) {
+            while ( $albumTracks = $result->fetch_assoc() ) {
 
-                echo('
+                echo( '
                 <tr>
                     <td>
-                     <audio controls>
-                        <source src="'. $albumTracks["sample"] .'" type="audio/mpeg">
-                        Your browser does not support the audio tag.
-                    </audio> 
+                    
+                    <button type="button" name="play-button" class="btn btn-secondary" 
+                    data-value="' . $albumTracks[ "sample" ] . '">▶</button>
+                    
                     </td>
-                    <td>'.$albumTracks["name"] . '</td>
+                    <td><a href="track.php?track_id=' . $albumTracks[ "track_id" ] . '">' . $albumTracks[ "name" ] . '</a></td>
                     <td>0.00</td>
                 </tr>
-                ');
+                ' );
 
             }
 
@@ -148,15 +156,32 @@ $result = mysqli_query( $connection, $query );
 
 </div>
 
-<div class="container-fluid" style="height: 10vh;">
-    <div class="row text-center text-white bg-primary justify-content-center pt-3" style="height: 100%;">
-        <div class="col w-1200 justify-content-center">
-            <i class="fab fa-twitter fa-4x px-4"></i>
-            <i class="fab fa-facebook fa-4x px-4"></i>
-            <i class="fab fa-instagram fa-4x px-4"></i>
-        </div>
-    </div>
+<div class="navbar fixed-bottom bg-primary justify-content-center">
+
+    <audio controls id="player" style="width: 80%;">
+        <source src="#" type="audio/mpeg">
+        Your browser does not support the audio tag.
+    </audio>
+
 </div>
+
+<script>
+
+    let playButtonArray = document.getElementsByName("play-button");
+    let player = document.getElementById("player");
+
+    playButtonArray.forEach(function (element) {
+
+        element.addEventListener("click", function () {
+
+            player.setAttribute("src", element.getAttribute("data-value"));
+            player.play();
+
+        });
+
+    });
+
+</script>
 
 </body>
 </html>

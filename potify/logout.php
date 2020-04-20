@@ -3,7 +3,7 @@
     // Logout code from https://www.php.net/session_destroy with slight alterations
 
     require("db_connection.php");
-    require("session.php");
+    require( "session.php" );
 
     //Start the session in order to logout
     session_start();

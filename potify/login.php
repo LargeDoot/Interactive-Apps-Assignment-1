@@ -59,9 +59,12 @@ if ( $_SERVER[ "REQUEST_METHOD" ] == "POST" ) {
     if ( $success && check_email( $connection, $email ) ) {
 
 
+        $statement = $connection->prepare("SELECT password FROM login WHERE username = ?");
+        $statement->bind_param("s", $email);
 
-        $query = "SELECT password FROM login WHERE username = '$email'";
-        $result = mysqli_query( $connection, $query );
+        $statement->execute();
+
+        $result = $statement->get_result();
 
         $storedPassword = mysqli_fetch_row( $result );
 
@@ -156,13 +159,11 @@ function check_email( $connection, $email ) {
     </nav>
 </div>
 
-<br><br><br><br><br>
-
 <div class="container-fluid">
 
     <div class="container w-1200 text-center" style="height:80vh;">
 
-        <span class="display-3">Log in</span>
+        <div class="display-3 pt-5">Log in</div>
 
         <form method="post" action="<?php echo htmlspecialchars( $_SERVER[ "PHP_SELF" ] ); ?>">
             <div class="form-group w-500 mx-auto my-5">
@@ -188,8 +189,8 @@ function check_email( $connection, $email ) {
 
 </div>
 
-<div class="container-fluid" style="height: 10vh;">
-    <div class="row text-center text-white bg-primary justify-content-center pt-3" style="height: 100%;">
+<div class="navbar footer bg-primary">
+    <div class="row text-white">
         <div class="col w-1200 justify-content-center">
             <i class="fab fa-twitter fa-4x px-4"></i>
             <i class="fab fa-facebook fa-4x px-4"></i>

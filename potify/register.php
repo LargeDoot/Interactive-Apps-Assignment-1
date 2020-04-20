@@ -34,8 +34,8 @@
 //test_input function is taken from https://www.w3schools.com/php/php_comments.asp
 
 //Variables for holding form contents and
-$emailErr = $passwordErr = $passwordMatchErr = $packageErr = $termsErr = "";
-$email = $password = $passwordMatch = $package = $terms = "";
+$emailErr = $nameErr = $passwordErr = $passwordMatchErr = $packageErr = $termsErr = "";
+$email = $name = $password = $passwordMatch = $package = $terms = "";
 
 $success = true;
 
@@ -53,6 +53,15 @@ if ( $_SERVER[ "REQUEST_METHOD" ] == "POST" ) {
     } // Success case
     else {
         $email = test_input( $_POST[ "email" ] );
+    }
+
+    // Check if the name field is empty, if so, deny the request
+    if ( empty( $_POST[ "name" ] ) ) {
+        $nameErr = ( "First name is required." );
+        $success = false;
+    } // Success case
+    else {
+        $name = test_input( $_POST[ "name" ] );
     }
 
     // Check if the password field is empty, if so, deny the request
@@ -100,24 +109,22 @@ if ( $_SERVER[ "REQUEST_METHOD" ] == "POST" ) {
     if ( $success ) {
 
         //Insert new user's details into login table
-        $newID = mysqli_query( $connection, "SELECT MAX(id) FROM login" );
-        $newIDNum = mysqli_fetch_row( $newID )[ 0 ] + 1;
 
         //Hash the password using PHPs password hash function
         //At time of writing the hashing algorithm used is bcrypt
-        $password = password_hash($password, PASSWORD_DEFAULT);
+        $password = password_hash( $password, PASSWORD_DEFAULT );
 
-        $query = "INSERT INTO login VALUES ($newIDNum, '$email', '$password', '$package')";
-        $query = htmlspecialchars( $query );
-
-        mysqli_query( $connection, $query );
+        $statement = $connection->prepare( "INSERT INTO login VALUES (NULL, ?, ?, ?, ?)" );
+        $statement->bind_param( "ssss", $email, $name, $password, $package );
+        $statement->execute();
 
         //Start a new session and redirect user
         session_start();
 
         $_SESSION[ "username" ] = $email;
+        $_SESSION[ "name" ] = $name;
 
-        header( "Location: music-list.php" );
+        header( "Location: welcome.php" );
 
 
     }
@@ -183,11 +190,11 @@ function check_email( $connection, $email )
                     </li>
 
                     <li class="nav-item float-right">
-                        <a class="nav-link border-left px-4 py-0 my-2" href="register.php">Register</a>
+                        <a class="nav-link border-left px-4 py-0 my-2 active" href="register.php">Register</a>
                     </li>
 
                     <li class="nav-item float-right">
-                        <a class="nav-link px-4 active" href="login.php">Login</a>
+                        <a class="nav-link px-4" href="login.php">Login</a>
                     </li>
 
                 </ul>
@@ -197,56 +204,63 @@ function check_email( $connection, $email )
     </nav>
 </div>
 
-<br><br><br><br><br>
-
 <!-- Used some small snipets of code from https://www.w3schools.com/php/php_form_required.asp for form -->
 
 <div class="container-fluid">
 
     <div class="container w-1200 text-center" style="height:78vh;">
 
-        <span class="display-3">Sign up</span> <br>
+        <div class="display-3 pt-5">Sign up</div>
+        <br>
         <span class="text-muted">Already a member? Login <a href="login.php">here</a></span>
 
         <form method="post" action="<?php echo htmlspecialchars( $_SERVER[ "PHP_SELF" ] ); ?>">
             <div class="form-group w-500 mx-auto my-5">
 
+
                 <span class="text-danger"><?php echo $emailErr; ?></span>
                 <input type="email" class="form-control my-2" placeholder="Email address" value="<?php echo $email; ?>"
                        name="email"/>
 
+
+                <span class="text-danger"><?php echo $nameErr; ?></span>
+                <input type="text" maxlength="35" class="form-control my-2" placeholder="First name"
+                       value="<?php echo $name; ?>" name="name"/>
+
+
                 <span class="text-danger"><?php echo $passwordErr; ?></span>
                 <span class="text-danger"><?php echo $passwordMatchErr; ?></span>
-                <input type="password" class="form-control my-2" placeholder="Password"
-                       name="password"/>
-                <input type="password" class="form-control my-2" placeholder="Confirm password"
-                       name="password_conf"/>
+
+                <input type="password" class="form-control my-2" placeholder="Password" name="password"/>
+                <input type="password" class="form-control my-2" placeholder="Confirm password" name="password_conf"/>
+
 
                 <span class="text-danger"><?php echo $packageErr; ?></span>
                 <select class="form-control" name="package">
-                    <option value="default"
-                            default <?php echo( $package == "default" ? "selected='selected'" : null ); ?>>Choose
-                        Package
+                    <option value="default" default
+                        <?php echo( $package == "default" ? "selected='selected'" : null ); ?>>Choose Package
                     </option>
-                    <option value="silver" <?php echo( $package == "silver" ? "selected='selected'" : null ); ?>>Silver
+                    <option value="silver" <?php echo( $package == "silver" ? "selected='selected'" : null ); ?>>
+                        Silver
                     </option>
-                    <option value="gold" <?php echo( $package == "gold" ? "selected='selected'" : null ); ?>>Gold
+                    <option value="gold" <?php echo( $package == "gold" ? "selected='selected'" : null ); ?>>
+                        Gold
                     </option>
                     <option value="platinum" <?php echo( $package == "platinum" ? "selected='selected'" : null ); ?>>
                         Platinum
                     </option>
-                    <option value="family" <?php echo( $package == "family" ? "selected='selected'" : null ); ?>>Family
+                    <option value="family" <?php echo( $package == "family" ? "selected='selected'" : null ); ?>>
+                        Family
                     </option>
                 </select>
 
-                <br>
 
                 <span class="text-danger"><?php echo $termsErr; ?></span>
                 <label class="form-check-label">
                     <input type="checkbox" class="form-check-input" name="terms">I accept the <a href="#">terms and
                         conditions</a>.
                 </label>
-                <br>
+
 
                 <input type="submit" name="submit" value="Submit" class="btn btn-secondary mt-5 font"/>
 
@@ -255,8 +269,8 @@ function check_email( $connection, $email )
     </div>
 </div>
 
-<div class="container-fluid" style="height: 10vh;">
-    <div class="row text-center text-white bg-primary justify-content-center pt-3" style="height: 100%;">
+<div class="navbar footer bg-primary">
+    <div class="row text-white">
         <div class="col w-1200 justify-content-center">
             <i class="fab fa-twitter fa-4x px-4"></i>
             <i class="fab fa-facebook fa-4x px-4"></i>

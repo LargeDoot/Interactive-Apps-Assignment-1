@@ -18,25 +18,20 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
           integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
-    <?php
-    require( "db_connection.php" );
-    require( "session.php" );
-    ?>
-
 </head>
-<body>
-
+<body class="bg-primary">
 <div class="container-fluid">
 
-    <nav class="navbar fixed-top navbar-expand-sm bg-primary navbar-dark">
+    <nav class="navbar fixed-top navbar-expand-sm navbar-dark">
 
         <div class="container w-1200">
 
-            <a href="welcome.php" class="navbar-brand">
+            <a href="index.php" class="navbar-brand">
                 <img src="images/Potify_Logo.png" alt="Potify icon">
             </a>
 
@@ -49,11 +44,15 @@
                 <ul class="navbar-nav ml-auto">
 
                     <li class="nav-item float-right">
-                        <a class="nav-link px-4 active" href="music-list.php">Track list</a>
+                        <a class="nav-link px-4" href="offers.php">Go Premium</a>
                     </li>
 
                     <li class="nav-item float-right">
-                        <a class="nav-link border-left px-4 py-0 my-2" href="logout.php">Log out</a>
+                        <a class="nav-link border-left px-4 py-0 my-2" href="register.php">Register</a>
+                    </li>
+
+                    <li class="nav-item float-right">
+                        <a class="nav-link px-4" href="login.php">Login</a>
                     </li>
 
                 </ul>
@@ -63,8 +62,7 @@
     </nav>
 </div>
 
-<div class="container-fluid text-lg-left text-sm-center bg-primary text-white"
-     style="padding-top: 10vh; padding-bottom: 10vh">
+<div class="container-fluid text-left text-white h-auto" style="padding-top: 20vh;">
 
     <div class="container mx-auto w-1200">
 
@@ -72,8 +70,8 @@
 
             <div class="col-xl-9 col-lg-10">
 
-                <h1 class="display-2">Our Music</h1>
-                <p>Browse all our music here</p>
+                <h1 class="display-2">Potify Music</h1>
+                <p>Music for everyone.</p>
 
             </div>
 
@@ -84,47 +82,8 @@
 </div>
 
 
-<div class="container-fluid text-center ">
-
-    <div class="display-4 my-4">All Albums</div>
-
-    <div class="row flex-nowrap overflow-auto">
-
-        <?php
-
-        $query = mysqli_query( $connection, "SELECT * FROM album;" );
-
-        while ( $row = mysqli_fetch_assoc( $query ) ) {
-
-
-            $image = $row[ "image" ];
-
-            echo( '
-            <!-- Card 1 - Silver -->
-            <div class="col-auto">
-                
-                <div class="card m-3 border-0 underline-hover" style="max-width: 16rem;">
-    
-                    <img class="card-img-top rounded" src=' . $image . '>
-    
-                    <div class="card-body pl-0">
-
-                        <b>' . $row[ "album_name" ] . '</b> <br>
-                        <span class="text-muted">' . $row[ "description" ] . '</span>
-                        
-                        <a href="album.php?album_id=' . $row[ "album_id" ] . '" class="stretched-link"></a>
-
-                     </div>
-                 </div>
-             </div>' );
-
-        }
-        ?>
-    </div>
-</div>
-
-<div class="container-fluid" style="height: 10vh;">
-    <div class="row text-center text-white bg-primary justify-content-center pt-3" style="height: 100%;">
+<div class="navbar footer bg-primary">
+    <div class="row text-white">
         <div class="col w-1200 justify-content-center">
             <i class="fab fa-twitter fa-4x px-4"></i>
             <i class="fab fa-facebook fa-4x px-4"></i>
