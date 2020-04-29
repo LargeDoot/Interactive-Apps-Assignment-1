@@ -30,10 +30,10 @@
     require( "db_connection.php" );
     require( "session.php" );
 
-    //Check if an album_id was submitted, if not the redirect to music list page.
-    if ( !isset( $_GET[ "album_id" ] ) ) {
+    //Check if an search query was submitted, if not the redirect to search page.
+    if ( !isset( $_GET[ "query" ] ) ) {
 
-        header( "Location: browse.php" );
+        header( "Location: search.php" );
 
     }
 
@@ -45,24 +45,33 @@
 
 <?php
 
-$albumID = $_GET[ "album_id" ];
+$query = $_GET[ "query" ];
+$sql_query = "%" . $query . "%";
 
-//Fetch album data for specified album
-$statement = $connection->prepare( "SELECT * FROM album WHERE album_id = ?" );
-$statement->bind_param( "s", $albumID );
+//Get albums and push into an array to make it easier to display later on
+$statement = $connection->prepare( "SELECT * FROM album" );
 $statement->execute();
 
 $result = $statement->get_result();
-$albumData = $result->fetch_assoc();
-//////////////////////////////////////
+///////////////////////////////////
 
-//Fetch all tracks in the specified album
-$statement = $connection->prepare( "SELECT * FROM tracks WHERE album_id = ?" );
-$statement->bind_param( "s", $albumID );
+$albumList = array();
+
+while ( $value = $result->fetch_assoc() ) {
+
+    array_push( $albumList, $value );
+
+}
+
+//Fetch tracks that fit the search criteria
+$searchStatement = "SELECT tracks.* FROM tracks JOIN album ON tracks.album_id=album.album_id WHERE tracks.name LIKE ? OR tracks.artist LIKE ? OR album.album_name LIKE ? GROUP BY track_id";
+
+$statement = $connection->prepare( $searchStatement );
+$statement->bind_param( "sss", $sql_query, $sql_query, $sql_query );
 $statement->execute();
 
 $result = $statement->get_result();
-//////////////////////////////////////
+///////////////////////////////////////////
 
 ?>
 
@@ -117,14 +126,13 @@ $result = $statement->get_result();
 
 </div>
 
-<!-- Page header -->
 <div class="container-fluid text-left bg-primary text-white" style="padding-top: 10vh; padding-bottom: 10vh">
 
     <!-- Max width container to keep content centered on a wide screen -->
     <div class="container mx-auto w-1200">
 
-        <h1 class="display-2 my-4"><?php echo( $albumData[ "album_name" ] ); ?></h1>
-        <p>An album by <?php echo( $albumData[ "artist" ] ); ?></p>
+        <h1 class="display-2 my-4">Search Results</h1>
+        <p>for '<?php echo( $query ); ?>'</p>
 
     </div>
 
@@ -134,52 +142,58 @@ $result = $statement->get_result();
 <!-- Main page content -->
 <div class="container-fluid text-center ">
 
-    <!-- Max width container to keep content centered on a wide screen -->
-    <div class="container w-1200">
+    <div class="container w-1200 overflow-auto">
 
         <div class="table-responsive">
 
-            <!-- Table to contain all tracks in album -->
+            <!-- Table to hold all tracks that fit search -->
             <table class="table table-hover text-left">
+
                 <thead class="text-muted">
+
                 <tr>
                     <th>Play</th>
                     <th>Name</th>
+                    <th>Artist</th>
+                    <th class="d-none d-sm-table-cell">Album</th>
                     <th>Rating</th>
                 </tr>
+
                 </thead>
+
                 <tbody>
+
                 <?php
 
-                //Loop through all results for tracks in the album
-                while ( $albumTracks = $result->fetch_assoc() ) {
+                //Loop through and display tracks that fit the search with their average rating
+                while ( $tracks = $result->fetch_assoc() ) {
 
-                    //Get the average rating for each track
+                    //Fetch the average rating for the current track
                     $statement = $connection->prepare( "SELECT AVG(rating) AS 'average' FROM reviews WHERE track_id = ?" );
-                    $statement->bind_param( "s", $albumTracks[ "track_id" ] );
+                    $statement->bind_param( "s", $tracks[ "track_id" ] );
                     $statement->execute();
 
                     $reviewsResult = $statement->get_result();
                     $avg = $reviewsResult->fetch_assoc();
-                    //////////////////////////////////////
+                    /////////////////////////////////////////////
 
-                    //Echo all html required for table row
+                    //Display the track in a row
                     echo( '
                 <tr>
                     <td>
                     
                     <button type="button" name="play-button" class="btn btn-secondary" 
-                    data-value="' . $albumTracks[ "sample" ] . '">▶</button>
+                    data-value="' . $tracks[ "sample" ] . '">▶</button>
                     
                     </td>
-                    <td><a href="track.php?track_id=' . $albumTracks[ "track_id" ] . '">' . $albumTracks[ "name" ] . '</a></td>
+                    <td><a href="track.php?track_id=' . $tracks[ "track_id" ] . '">' . $tracks[ "name" ] . '</a></td>
+                    <td><a href="track.php?artist=' . urlencode( $tracks[ "artist" ] ) . '">' . $tracks[ "artist" ] . '</a></td>
+                    <td class="d-none d-sm-table-cell"><a href="track.php?track_id=' . $tracks[ "album_id" ] . '">' . $albumList[ $tracks[ "album_id" ] - 1 ][ "album_name" ] . '</a></td>
                     <td>' . number_format( $avg[ "average" ], 2 ) . '</td>
-                </tr>
-                ' );
+                </tr>' );
 
-                }
+                } ?>
 
-                ?>
                 </tbody>
 
             </table>
@@ -189,7 +203,6 @@ $result = $statement->get_result();
     </div>
 
 </div>
-
 
 <!-- Audio player -->
 <div class="navbar fixed-bottom bg-primary justify-content-center">

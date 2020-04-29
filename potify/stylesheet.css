@@ -58,3 +58,10 @@ body {
     padding-bottom: 56px;
 }
 
+/* Copied from https://stackoverflow.com/questions/31184000/making-a-bootstrap-table-column-fit-to-content */
+/* Used to shrink a table column to fit the item(s) inside it. */
+.table td.fit,
+.table th.fit {
+    white-space: nowrap;
+    width: 1%;
+}

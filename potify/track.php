@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <!-- Template used from https://www.w3schools.com/bootstrap4/tryit.asp?filename=trybs_template1 -->
+<!-- The Bootstrap 4 framework was used for this site - see https://getbootstrap.com/ for more details -->
 
 <html lang="en">
 <head>
@@ -10,6 +11,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- Link to Bootstrap and custom stylesheets (Bootstrap via CDN) -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="custom-theme-colours.css">
     <link rel="stylesheet" href="stylesheet.css">
@@ -18,114 +20,140 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
           integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
+    <!-- Link to jQuery and Boostrap javascript files via CDN -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
     <?php
+    //Page requires a successful database connection and valid session
     require( "db_connection.php" );
     require( "session.php" );
 
     //Check if an album_id was submitted, if not the redirect to music list page.
     if ( !isset( $_GET[ "track_id" ] ) ) {
 
-//        header( "Location: music-list.php" );
+        header( "Location: browse.php" );
+
+    }
+
+    //Check that the track exists
+    $statement = $connection->prepare( "SELECT * FROM tracks WHERE track_id = ?" );
+    $statement->bind_param( "s", $_GET[ "track_id" ] );
+    $statement->execute();
+
+    $result = $statement->get_result();
+    ////////////////////////////////////
+
+    //If the track doesnt exist then redirect to all tracks page
+    if ( mysqli_num_rows( $result ) == 0 ) {
+
+        header( "Location: all-tracks.php" );
 
     }
 
     ?>
 
 </head>
+
 <body>
 
 <?php
 
 $trackID = $_GET[ "track_id" ];
 
-
-//Get the tracks
+//Fetch data for the specified track
 $statement = $connection->prepare( "SELECT * FROM tracks WHERE track_id = ?" );
 $statement->bind_param( "s", $trackID );
-
 $statement->execute();
 
 $result = $statement->get_result();
-
 $trackData = $result->fetch_assoc();
+/////////////////////////////////////////
 
-//Get the name of the logged in user
-$statement = $connection->prepare( "SELECT name FROM login WHERE username = ?" );
+//Fetch the details of the logged in user for use in reviews
+$statement = $connection->prepare( "SELECT * FROM login WHERE username = ?" );
 $statement->bind_param( "s", $current_user );
-
 $statement->execute();
 
 $result = $statement->get_result();
-
 $nameData = $result->fetch_assoc();
-$name = $nameData["name"];
+/////////////////////////////////////////
 
+$name = $nameData[ "name" ];
+$user_id = $nameData[ "id" ];
 
-//Code to deal with the review form submission
+//Code for form submissions
 $comment = "";
 
 if ( $_SERVER[ "REQUEST_METHOD" ] == "POST" ) {
 
-    if ( empty( $_POST[ "comment" ] ) ) {
+    //Code to deal with the review form submission
+    if ( isset( $_POST[ "comment" ] ) ) {
 
-        $comment = "This user did not leave a comment";
+        if ( empty( $_POST[ "comment" ] ) ) {
 
-    } else {
+            $comment = "This user did not leave a comment";
 
-        $comment = $_POST[ "comment" ];
+        } else {
+
+            $comment = htmlspecialchars( $_POST[ "comment" ] );
+
+        }
+
+        $rating = htmlspecialchars( $_POST[ "rating" ] );
+
+        //Insert the new review into the reviews table
+        $statement = $connection->prepare( "INSERT INTO reviews VALUES(NULL, ?, ?, ?, ?)" );
+        $statement->bind_param( "ssss", $trackID, $name, $comment, $rating );
+        $statement->execute();
+        /////////////////////////////////////////////
 
     }
-    $statement = $connection->prepare( "INSERT INTO reviews VALUES(NULL, ?, ?, ?, ?)" );
-    $statement->bind_param( "ssss", $trackID, $name, $comment, $_POST[ "rating" ] );
 
-    $statement->execute();
+    //Code to deal with an add to playlist request
+    if ( !empty( $_POST[ "add_playlist" ] ) ) {
+
+        $addPlaylist = htmlspecialchars( $_POST[ "add_playlist" ] );
+
+        //Insert new track into the specified playlist
+        $statement = $connection->prepare( "INSERT INTO playlist_entry VALUES(?, ?, ?)" );
+        $statement->bind_param( "iii", $addPlaylist, $trackID, $user_id );
+        $statement->execute();
+        ///////////////////////////////////
+    }
 
 }
 
 
-//Get reviews
-$statement = $connection->prepare( "SELECT * FROM reviews WHERE track_id = ? ORDER BY `review_id` ASC" );
+//Fetch average review
+$statement = $connection->prepare( "SELECT AVG(rating) AS 'average' FROM reviews WHERE track_id = ?" );
 $statement->bind_param( "s", $trackID );
-
 $statement->execute();
 
 $result = $statement->get_result();
-$numReviews = mysqli_num_rows( $result );
+$trackReviewsData = $result->fetch_assoc();
+/////////////////////////////////////
 
-//Get average review
-if($numReviews > 0) {
+$average = $trackReviewsData[ "average" ];
 
-    $total = 0;
-
-    while ( $trackReviewsData = $result->fetch_assoc() ) {
-
-        $total += $trackReviewsData["rating"];
-
-    }
-
-    $average = $total/$numReviews;
-} else {
-
-    $average = 0;
-
-}
-
-
-
-//Get reviews again (reusing the query from before)
+//Fetch reviews again (reusing the query from before)
+$statement = $connection->prepare( "SELECT * FROM reviews WHERE track_id = ?" );
+$statement->bind_param( "s", $trackID );
 $statement->execute();
 $result = $statement->get_result();
+///////////////////////////////////////////
+
+$numReviews = $result->num_rows;
 
 ?>
 
 <div class="container-fluid">
 
+    <!-- Navigation bar -->
     <nav class="navbar fixed-top navbar-expand-sm bg-primary navbar-dark">
 
+        <!-- Max width container to keep content centered on a wide screen -->
         <div class="container w-1200">
 
             <a href="welcome.php" class="navbar-brand">
@@ -136,12 +164,25 @@ $result = $statement->get_result();
                 <span class="navbar-toggler-icon"></span>
             </button>
 
+            <!-- Navbar items -->
             <div class="navbar-collapse collapse" id="collapsibleNavbar">
 
                 <ul class="navbar-nav ml-auto">
 
                     <li class="nav-item float-right">
-                        <a class="nav-link px-4" href="music-list.php">Albums</a>
+                        <a class="nav-link px-4" href="all-tracks.php">All Tracks</a>
+                    </li>
+
+                    <li class="nav-item float-right">
+                        <a class="nav-link px-4" href="playlists.php">Playlists</a>
+                    </li>
+
+                    <li class="nav-item float-right">
+                        <a class="nav-link px-4" href="browse.php">Browse</a>
+                    </li>
+
+                    <li class="nav-item float-right">
+                        <a class="nav-link px-4" href="search.php">Search</a>
                     </li>
 
                     <li class="nav-item float-right">
@@ -151,57 +192,94 @@ $result = $statement->get_result();
                 </ul>
 
             </div>
+
         </div>
+
     </nav>
+
 </div>
 
-<div class="container-fluid text-left bg-primary text-white"
-     style="padding-top: 10vh; padding-bottom: 10vh">
+<div class="container-fluid text-left bg-primary text-white" style="padding-top: 10vh; padding-bottom: 10vh">
 
+    <!-- Max width container to keep content centered on a wide screen -->
     <div class="container mx-auto w-1200">
 
-        <div class="row py-4">
+        <h1 class="display-2 my-4"><?php echo( $trackData[ "name" ] ); ?></h1>
 
-            <div class="col-xl-9 col-lg-10">
+        <button type="button" name="play-button" class="btn btn-secondary mx-2"
+                data-value="<?php echo( $trackData[ "sample" ] ) ?>">▶
+        </button>
 
-                <h1 class="display-2"><?php echo( $trackData[ "name" ] ); ?></h1>
+        A track by <?php echo( $trackData[ "artist" ] ); ?>
 
-                <button type="button" name="play-button" class="btn btn-secondary mx-2"
-                        data-value="<?php echo( $trackData[ "sample" ] ) ?>">▶
-                </button>
+        <br><br>
 
-                A track by <?php echo( $trackData[ "artist" ] ); ?>
+        <?php
+        //Display the average review for the track in stars out of 5
 
-                <pre>&#9;&#9;</pre>
+        echo( "Average review: " );
 
-                <?php echo("Average review: ");
+        for ( $i = 0; $i < round( $average / 2 ); $i++ ) {
 
-                for($i = 0; $i < round($average/2); $i ++) {
+            echo( "★" );
 
-                    echo("★");
+        }
 
-                }
+        for ( $i = 0; $i < ( 5 - round( $average / 2 ) ); $i++ ) {
 
-                for($i = 0; $i < (5 - round($average/2)); $i ++) {
+            echo( "☆" );
 
-                    echo("☆");
+        }
 
-                }
+        ?>
 
+        <br><br>
 
-                ?>
+        <!-- Form for submitting a review -->
+        <form method="post" action="<?php echo( htmlspecialchars( $_SERVER[ "PHP_SELF" ] ) . "?track_id=" .
+            $trackID ); ?>">
 
-                </div>
+            <button type="button" class="btn btn-secondary dropdown-toggle float-sm-right"
+                    data-toggle="dropdown">
+                Add to playlist
+            </button>
 
-            <div class="col-xl"></div>
+            <div class="dropdown-menu">
 
-        </div>
+                <?php
+
+                //Fetch available playlists
+                $statement = $connection->prepare( "SELECT * FROM playlists WHERE owner_user_id = ?" );
+                $statement->bind_param( "i", $user_id );
+                $statement->execute();
+
+                $playlistResult = $statement->get_result();
+                ///////////////////////////////////////
+
+                //Loop through and create buttons for each playlist
+                while ( $playlist = $playlistResult->fetch_assoc() ) {
+
+                    echo( '
+                        
+                       <button type="submit" name="add_playlist" class="btn btn-secondary dropdown-item"
+                            value="' . $playlist[ "playlist_id" ] . '">
+                            ' . $playlist[ "playlist_name" ] . '
+                       </button>' );
+
+                } ?>
+
+            </div>
+
+        </form>
+
     </div>
+
 </div>
 
 
 <div class="container-fluid justify-content-center">
 
+    <!-- Max width container to keep content centered on a wide screen -->
     <div class="container w-1200">
 
         <div class="row mt-5">
@@ -225,7 +303,9 @@ $result = $statement->get_result();
                         <textarea class="form-control mb-3" rows="3" id="comment" name="comment"></textarea>
 
                         <div class="row">
+
                             <div class="col-6">
+
                                 <label style="white-space: nowrap;">Rating:
                                     <select class="form-control mb-3" name="rating">
                                         <option>1</option>
@@ -240,12 +320,17 @@ $result = $statement->get_result();
                                         <option>10</option>
                                     </select>
                                 </label>
+
                             </div>
+
                             <div class="col-6">
-                                <button type="sumbit" class="btn btn-secondary float-right my-4">Submit</button>
+                                <button type="submit" class="btn btn-secondary float-right my-4">Submit</button>
                             </div>
+
                         </div>
+
                     </div>
+
                 </form>
 
             </div>
@@ -254,15 +339,19 @@ $result = $statement->get_result();
             <div class="col-lg-6 col-md-10">
 
                 <table class="table table-hover text-left">
+
                     <thead>
+
                     <tr>
                         <th>User</th>
                         <th>Rating</th>
                         <th>Comment</th>
                     </tr>
+
                     </thead>
 
                     <tbody>
+
                     <?php
                     while ( $trackReviewsData = $result->fetch_assoc() ) {
 
@@ -271,13 +360,12 @@ $result = $statement->get_result();
                                     <td>' . $trackReviewsData[ "name" ] . '</td>
                                     <td>' . $trackReviewsData[ "rating" ] . '</td>
                                     <td>' . $trackReviewsData[ "review" ] . '</td>
-                                </tr>
-                            ' );
+                                </tr>' );
 
-                    }
+                    } ?>
 
-                    ?>
                     </tbody>
+
                 </table>
 
                 <?php
@@ -291,10 +379,14 @@ $result = $statement->get_result();
                 ?>
 
             </div>
+
         </div>
+
     </div>
+
 </div>
 
+<!-- Audio player -->
 <div class="navbar fixed-bottom bg-primary justify-content-center">
 
     <audio controls id="player" style="width: 80%;">
@@ -305,6 +397,8 @@ $result = $statement->get_result();
 </div>
 
 <script>
+
+    // Code to deal with audio player sources
 
     let playButtonArray = document.getElementsByName("play-button");
     let player = document.getElementById("player");

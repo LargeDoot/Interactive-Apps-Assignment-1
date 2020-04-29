@@ -6,6 +6,7 @@
 
     if (!isset($_SESSION["username"])) {
 
+        //Verify session
         header("Location: login.php?message=error");
         die;
 

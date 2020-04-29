@@ -31,7 +31,7 @@
     require( "session.php" );
 
     //Check if an album_id was submitted, if not the redirect to music list page.
-    if ( !isset( $_GET[ "album_id" ] ) ) {
+    if ( !isset( $_GET[ "genre" ] ) ) {
 
         header( "Location: browse.php" );
 
@@ -40,29 +40,29 @@
     ?>
 
 </head>
-
 <body>
 
 <?php
 
-$albumID = $_GET[ "album_id" ];
+$genre = $_GET[ "genre" ];
 
-//Fetch album data for specified album
-$statement = $connection->prepare( "SELECT * FROM album WHERE album_id = ?" );
-$statement->bind_param( "s", $albumID );
+//Fetch tracks for specified genre for use in displaying genre heading
+$statement = $connection->prepare( "SELECT * FROM tracks WHERE genre = ? GROUP BY artist" );
+$statement->bind_param( "s", $genre );
 $statement->execute();
 
 $result = $statement->get_result();
-$albumData = $result->fetch_assoc();
-//////////////////////////////////////
+$genreTrackData = $result->fetch_assoc();
+/////////////////////////////////////
 
-//Fetch all tracks in the specified album
-$statement = $connection->prepare( "SELECT * FROM tracks WHERE album_id = ?" );
-$statement->bind_param( "s", $albumID );
+//Fetch track data for use in displaying tracks of specified genre
+$statement = $connection->prepare( "SELECT * FROM tracks WHERE genre = ?" );
+$statement->bind_param( "s", $genre );
 $statement->execute();
 
 $result = $statement->get_result();
-//////////////////////////////////////
+///////////////////////////////////////
+
 
 ?>
 
@@ -117,14 +117,13 @@ $result = $statement->get_result();
 
 </div>
 
-<!-- Page header -->
 <div class="container-fluid text-left bg-primary text-white" style="padding-top: 10vh; padding-bottom: 10vh">
 
     <!-- Max width container to keep content centered on a wide screen -->
     <div class="container mx-auto w-1200">
 
-        <h1 class="display-2 my-4"><?php echo( $albumData[ "album_name" ] ); ?></h1>
-        <p>An album by <?php echo( $albumData[ "artist" ] ); ?></p>
+        <h1 class="display-2 my-4"><?php echo( $genreTrackData[ "genre" ] ); ?></h1>
+        <p>All tracks</p>
 
     </div>
 
@@ -137,34 +136,37 @@ $result = $statement->get_result();
     <!-- Max width container to keep content centered on a wide screen -->
     <div class="container w-1200">
 
-        <div class="table-responsive">
+        <table class="table table-hover text-left">
 
-            <!-- Table to contain all tracks in album -->
-            <table class="table table-hover text-left">
-                <thead class="text-muted">
-                <tr>
-                    <th>Play</th>
-                    <th>Name</th>
-                    <th>Rating</th>
-                </tr>
-                </thead>
-                <tbody>
-                <?php
+            <thead class="text-muted">
 
-                //Loop through all results for tracks in the album
-                while ( $albumTracks = $result->fetch_assoc() ) {
+            <tr>
+                <th>Play</th>
+                <th>Name</th>
+                <th>Artist</th>
+                <th>Rating</th>
+            </tr>
 
-                    //Get the average rating for each track
-                    $statement = $connection->prepare( "SELECT AVG(rating) AS 'average' FROM reviews WHERE track_id = ?" );
-                    $statement->bind_param( "s", $albumTracks[ "track_id" ] );
-                    $statement->execute();
+            </thead>
 
-                    $reviewsResult = $statement->get_result();
-                    $avg = $reviewsResult->fetch_assoc();
-                    //////////////////////////////////////
+            <tbody>
 
-                    //Echo all html required for table row
-                    echo( '
+            <?php
+
+            //Loop through the tracks and display them with their average ratings
+            while ( $albumTracks = $result->fetch_assoc() ) {
+
+                //Fetch average rating for current track
+                $statement = $connection->prepare( "SELECT AVG(rating) AS 'average' FROM reviews WHERE track_id = ?" );
+                $statement->bind_param( "s", $albumTracks[ "track_id" ] );
+                $statement->execute();
+
+                $reviewsResult = $statement->get_result();
+                $avg = $reviewsResult->fetch_assoc();
+                ///////////////////////////////////////
+
+                //Display the table row
+                echo( '
                 <tr>
                     <td>
                     
@@ -173,23 +175,20 @@ $result = $statement->get_result();
                     
                     </td>
                     <td><a href="track.php?track_id=' . $albumTracks[ "track_id" ] . '">' . $albumTracks[ "name" ] . '</a></td>
+                    <td><a href="artist.php?artist=' . urlencode( $albumTracks[ "artist" ] ) . '">' . $albumTracks[ "artist" ] .
+                    '</a></td>
                     <td>' . number_format( $avg[ "average" ], 2 ) . '</td>
-                </tr>
-                ' );
+                </tr>' );
 
-                }
+            } ?>
 
-                ?>
-                </tbody>
+            </tbody>
 
-            </table>
-
-        </div>
+        </table>
 
     </div>
 
 </div>
-
 
 <!-- Audio player -->
 <div class="navbar fixed-bottom bg-primary justify-content-center">
@@ -222,5 +221,4 @@ $result = $statement->get_result();
 </script>
 
 </body>
-
 </html>

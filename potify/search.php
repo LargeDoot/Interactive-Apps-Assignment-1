@@ -26,17 +26,37 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
+    <?php
+    //Page requires a successful database connection and valid session
+    require( "db_connection.php" );
+    require( "session.php" );
+    ?>
+
 </head>
 <body class="bg-primary">
+
+<?php
+
+//Check if a search term was submitted, if so then redirect to the search results
+if ( isset( $_POST[ "query" ] ) and $_POST[ "query" ] != "" ) {
+
+    $query = htmlspecialchars( $_POST[ "query" ] );
+
+    header( "Location: search-results.php?query=" . $query );
+
+}
+
+?>
+
 <div class="container-fluid">
 
     <!-- Navigation bar -->
-    <nav class="navbar fixed-top navbar-expand-sm navbar-dark">
+    <nav class="navbar fixed-top navbar-expand-sm bg-primary navbar-dark">
 
         <!-- Max width container to keep content centered on a wide screen -->
         <div class="container w-1200">
 
-            <a href="index.php" class="navbar-brand">
+            <a href="welcome.php" class="navbar-brand">
                 <img src="images/Potify_Logo.png" alt="Potify icon">
             </a>
 
@@ -50,15 +70,23 @@
                 <ul class="navbar-nav ml-auto">
 
                     <li class="nav-item float-right">
-                        <a class="nav-link px-4" href="offers.php">Go Premium</a>
+                        <a class="nav-link px-4" href="all-tracks.php">All Tracks</a>
                     </li>
 
                     <li class="nav-item float-right">
-                        <a class="nav-link border-left px-4 py-0 my-2" href="register.php">Register</a>
+                        <a class="nav-link px-4" href="playlists.php">Playlists</a>
                     </li>
 
                     <li class="nav-item float-right">
-                        <a class="nav-link px-4" href="login.php">Login</a>
+                        <a class="nav-link px-4" href="browse.php">Browse</a>
+                    </li>
+
+                    <li class="nav-item float-right active">
+                        <a class="nav-link px-4" href="search.php">Search</a>
+                    </li>
+
+                    <li class="nav-item float-right">
+                        <a class="nav-link border-left px-4 py-0 my-2" href="logout.php">Log out</a>
                     </li>
 
                 </ul>
@@ -76,8 +104,17 @@
     <!-- Max width container to keep content centered on a wide screen -->
     <div class="container mx-auto w-1200">
 
-        <h1 class="display-2 my-4">Potify Music</h1>
-        <p>Music for everyone.</p>
+        <h1 class="display-2 my-4">Search</h1>
+        <p>Try searching for a track name, artist name or album name!</p>
+
+        <!-- Search form -->
+        <form method="post" action="<?php echo htmlspecialchars( $_SERVER[ "PHP_SELF" ] ); ?>">
+            <div class="form-group w-500 my-5">
+                <input type="text" class="form-control" placeholder="Search" name="query"/>
+
+                <input type="submit" name="submit" value="Submit" class="btn btn-secondary mt-3 font"/>
+            </div>
+        </form>
 
     </div>
 

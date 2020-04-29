@@ -30,39 +30,34 @@
     require( "db_connection.php" );
     require( "session.php" );
 
-    //Check if an album_id was submitted, if not the redirect to music list page.
-    if ( !isset( $_GET[ "album_id" ] ) ) {
-
-        header( "Location: browse.php" );
-
-    }
-
     ?>
 
 </head>
-
 <body>
 
 <?php
 
-$albumID = $_GET[ "album_id" ];
-
-//Fetch album data for specified album
-$statement = $connection->prepare( "SELECT * FROM album WHERE album_id = ?" );
-$statement->bind_param( "s", $albumID );
+//Fetch everything from the album table
+$statement = $connection->prepare( "SELECT * FROM album" );
 $statement->execute();
-
 $result = $statement->get_result();
-$albumData = $result->fetch_assoc();
-//////////////////////////////////////
+/////////////////////////////////////////
 
-//Fetch all tracks in the specified album
-$statement = $connection->prepare( "SELECT * FROM tracks WHERE album_id = ?" );
-$statement->bind_param( "s", $albumID );
+//Put all album data into an array
+$albumList = array();
+
+while ( $value = $result->fetch_assoc() ) {
+
+    array_push( $albumList, $value );
+
+}
+
+
+//Fetch everything from the tracks table
+$statement = $connection->prepare( "SELECT * FROM tracks" );
 $statement->execute();
-
 $result = $statement->get_result();
-//////////////////////////////////////
+/////////////////////////////////////////
 
 ?>
 
@@ -87,7 +82,7 @@ $result = $statement->get_result();
 
                 <ul class="navbar-nav ml-auto">
 
-                    <li class="nav-item float-right">
+                    <li class="nav-item float-right active">
                         <a class="nav-link px-4" href="all-tracks.php">All Tracks</a>
                     </li>
 
@@ -123,8 +118,8 @@ $result = $statement->get_result();
     <!-- Max width container to keep content centered on a wide screen -->
     <div class="container mx-auto w-1200">
 
-        <h1 class="display-2 my-4"><?php echo( $albumData[ "album_name" ] ); ?></h1>
-        <p>An album by <?php echo( $albumData[ "artist" ] ); ?></p>
+        <h1 class="display-2 my-4">All tracks</h1>
+        <p>Our whole collection of tracks</p>
 
     </div>
 
@@ -135,51 +130,55 @@ $result = $statement->get_result();
 <div class="container-fluid text-center ">
 
     <!-- Max width container to keep content centered on a wide screen -->
-    <div class="container w-1200">
+    <div class="container w-1200 overflow-auto">
 
+        <!-- Table to hold all tracks -->
         <div class="table-responsive">
 
-            <!-- Table to contain all tracks in album -->
             <table class="table table-hover text-left">
                 <thead class="text-muted">
                 <tr>
                     <th>Play</th>
                     <th>Name</th>
+                    <th>Artist</th>
+                    <th class="d-none d-sm-table-cell">Album</th>
                     <th>Rating</th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php
 
-                //Loop through all results for tracks in the album
-                while ( $albumTracks = $result->fetch_assoc() ) {
+                //Loop through all tracks, fetch the average rating and display a table row
+                while ( $tracks = $result->fetch_assoc() ) {
 
-                    //Get the average rating for each track
+                    //Fetch average rating for current track
                     $statement = $connection->prepare( "SELECT AVG(rating) AS 'average' FROM reviews WHERE track_id = ?" );
-                    $statement->bind_param( "s", $albumTracks[ "track_id" ] );
+                    $statement->bind_param( "s", $tracks[ "track_id" ] );
                     $statement->execute();
 
                     $reviewsResult = $statement->get_result();
                     $avg = $reviewsResult->fetch_assoc();
-                    //////////////////////////////////////
+                    /////////////////////////////////////////
 
-                    //Echo all html required for table row
+
+                    //Echo all table row data including links to tracks, artists etc
                     echo( '
                 <tr>
                     <td>
                     
                     <button type="button" name="play-button" class="btn btn-secondary" 
-                    data-value="' . $albumTracks[ "sample" ] . '">▶</button>
+                    data-value="' . $tracks[ "sample" ] . '">▶</button>
                     
                     </td>
-                    <td><a href="track.php?track_id=' . $albumTracks[ "track_id" ] . '">' . $albumTracks[ "name" ] . '</a></td>
+                    <td><a href="track.php?track_id=' . $tracks[ "track_id" ] . '">' . $tracks[ "name" ] . '</a></td>
+                    <td><a href="artist.php?artist=' . urlencode( $tracks[ "artist" ] ) . '">' . $tracks[ "artist" ] . '</a></td>
+                    <td class="d-none d-sm-table-cell"><a href="album.php?album_id=' . $tracks[ "album_id" ] . '">' .
+                        $albumList[ $tracks[ "album_id" ] - 1 ][ "album_name" ] . '</a></td>
                     <td>' . number_format( $avg[ "average" ], 2 ) . '</td>
-                </tr>
-                ' );
+                </tr>' );
 
-                }
+                } ?>
 
-                ?>
                 </tbody>
 
             </table>
@@ -189,7 +188,6 @@ $result = $statement->get_result();
     </div>
 
 </div>
-
 
 <!-- Audio player -->
 <div class="navbar fixed-bottom bg-primary justify-content-center">
@@ -222,5 +220,4 @@ $result = $statement->get_result();
 </script>
 
 </body>
-
 </html>
